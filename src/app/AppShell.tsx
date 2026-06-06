@@ -1,9 +1,10 @@
-import { useState } from "react";
-import { BottomTabBar, type TabId } from "./BottomTabBar";
+import { BottomTabBar } from "./BottomTabBar";
 import { ChipsPage } from "../pages/ChipsPage";
 import { HomePage } from "../pages/HomePage";
 import { LovePage } from "../pages/LovePage";
 import { TravelPage } from "../pages/TravelPage";
+import { useAppStore } from "../store/appStore";
+import type { TabId } from "../store/types";
 
 const pages: Record<TabId, React.ReactNode> = {
   home: <HomePage />,
@@ -13,7 +14,8 @@ const pages: Record<TabId, React.ReactNode> = {
 };
 
 export function AppShell() {
-  const [currentTab, setCurrentTab] = useState<TabId>("home");
+  const currentTab = useAppStore((state) => state.appStatus.currentTab);
+  const setCurrentTab = useAppStore((state) => state.setCurrentTab);
 
   return (
     <div className="app-shell">

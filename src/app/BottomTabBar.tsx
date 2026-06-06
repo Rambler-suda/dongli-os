@@ -1,6 +1,5 @@
 import type { ReactNode } from "react";
-
-export type TabId = "home" | "travel" | "love" | "chips";
+import type { TabId } from "../store/types";
 
 type BottomTabBarProps = {
   currentTab: TabId;
