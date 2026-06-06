@@ -25,6 +25,7 @@ describe("ChipsPage", () => {
     const user = userEvent.setup();
     render(<ChipsPage />);
 
+    expect(screen.queryByText("筹码说明")).toBeNull();
     const dongdongCard = getPersonCard("大冻梨");
     const actions = within(dongdongCard).getAllByRole("button");
 

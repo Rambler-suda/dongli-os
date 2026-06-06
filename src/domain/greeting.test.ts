@@ -21,6 +21,18 @@ describe("greeting domain", () => {
     expect(getCurrentGreetingSlot(atHour(21)).slot).toBe("night");
   });
 
+  it("uses the configured main greeting for every time slot", () => {
+    expect(getTodayGreeting(atHour(0)).mainText).toBe("半夜好，婷婷");
+    expect(getTodayGreeting(atHour(3)).mainText).toBe("深夜好，婷婷");
+    expect(getTodayGreeting(atHour(6)).mainText).toBe("早上好，呀婷婷");
+    expect(getTodayGreeting(atHour(7)).mainText).toBe("早上好，呀婷婷");
+    expect(getTodayGreeting(atHour(9)).mainText).toBe("早上好，呀婷婷");
+    expect(getTodayGreeting(atHour(12)).mainText).toBe("中午好，呀婷婷");
+    expect(getTodayGreeting(atHour(15)).mainText).toBe("下午好，呀婷婷");
+    expect(getTodayGreeting(atHour(18)).mainText).toBe("傍晚好，呀婷婷");
+    expect(getTodayGreeting(atHour(21)).mainText).toBe("晚上好，呀婷婷");
+  });
+
   it("keeps a greeting stable for the same date and time slot", () => {
     const morning = atHour(8);
     const first = getTodayGreeting(morning);

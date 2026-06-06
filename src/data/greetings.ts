@@ -24,7 +24,7 @@ export const greetings: readonly GreetingConfig[] = [
     startHour: 6,
     endHour: 7,
     icon: "☀",
-    mainText: "清晨好呀婷婷，新的一天偷偷开始啦",
+    mainText: "早上好，呀婷婷",
     subTexts: [
       "先睁一只眼也算起床成功。",
       "今天也要慢慢变好。",
@@ -36,7 +36,7 @@ export const greetings: readonly GreetingConfig[] = [
     startHour: 7,
     endHour: 9,
     icon: "☀",
-    mainText: "早上好呀婷婷，早起的宝宝有奖励",
+    mainText: "早上好，呀婷婷",
     subTexts: [
       "美好的一天从先睁开一只眼睛瞄手机开始。",
       "愿晨起一睁眼，看到的是我们彼此。",
@@ -48,7 +48,7 @@ export const greetings: readonly GreetingConfig[] = [
     startHour: 9,
     endHour: 12,
     icon: "☀",
-    mainText: "早上好呀婷婷，太阳晒屁股喽",
+    mainText: "早上好，呀婷婷",
     subTexts: ["昨晚有没有梦到我？", "喝水！喝水！喝水！", "健康的猪猪需要营养，快去觅食！"],
   },
   {
@@ -56,7 +56,7 @@ export const greetings: readonly GreetingConfig[] = [
     startHour: 12,
     endHour: 15,
     icon: "☼",
-    mainText: "中午好呀婷婷，晒太阳时间到",
+    mainText: "中午好，呀婷婷",
     subTexts: ["刚起床补水会有小奖励哦。", "先认真吃饭，再慢慢忙。", "午后也要留一点时间给自己。"],
   },
   {
@@ -64,7 +64,7 @@ export const greetings: readonly GreetingConfig[] = [
     startHour: 15,
     endHour: 18,
     icon: "☼",
-    mainText: "下午好呀婷婷，今天辛苦啦",
+    mainText: "下午好，呀婷婷",
     subTexts: ["多久没一起看夕阳啦？", "喝水！喝水！喝水！", "忙完这一点，就休息一下。"],
   },
   {
@@ -72,7 +72,7 @@ export const greetings: readonly GreetingConfig[] = [
     startHour: 18,
     endHour: 21,
     icon: "◐",
-    mainText: "傍晚好呀婷婷，辛苦一天该放松下了",
+    mainText: "傍晚好，呀婷婷",
     subTexts: ["今天有没有想我？", "该寻找同伴一起觅食了。", "今晚也要好好吃饭。"],
   },
   {
@@ -80,7 +80,7 @@ export const greetings: readonly GreetingConfig[] = [
     startHour: 21,
     endHour: 24,
     icon: "☾",
-    mainText: "晚上好呀婷婷，今天有没有开开心心的呢",
+    mainText: "晚上好，呀婷婷",
     subTexts: ["该香香洗个澡准备睡觉喽。", "今天辛苦了，慢慢放松下来吧。", "做个好梦，记得梦到我。"],
   },
   {
@@ -88,7 +88,7 @@ export const greetings: readonly GreetingConfig[] = [
     startHour: 0,
     endHour: 3,
     icon: "☾",
-    mainText: "半夜好婷婷，熬夜伤身哦",
+    mainText: "半夜好，婷婷",
     subTexts: ["午夜降临，美梦开启。", "做个好梦宝宝，记得梦到我。", "睡不着也要先让眼睛休息一下。"],
   },
   {
@@ -96,7 +96,7 @@ export const greetings: readonly GreetingConfig[] = [
     startHour: 3,
     endHour: 6,
     icon: "✦",
-    mainText: "深夜好婷婷，做噩梦了要打电话给我哦",
+    mainText: "深夜好，婷婷",
     subTexts: ["还不睡还不睡还不睡。", "实在睡不着就打给我。", "现在最重要的事情是好好休息。"],
   },
 ];

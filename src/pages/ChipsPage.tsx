@@ -49,18 +49,6 @@ export function ChipsPage() {
         description="愿赌服输，但只能轻轻来。"
       />
 
-      <Card className="chips-summary chips-rule-hero" tone="pear">
-        <div>
-          <p className="card-label">筹码说明</p>
-          <strong>攒够 10 个小手，就会变成 1 个小愿望。</strong>
-          <span>这次先记上，之后慢慢兑现。</span>
-        </div>
-        <div className="chips-rule-hero__mark" aria-hidden="true">
-          <span>10</span>
-          <small>手 = 1 愿望</small>
-        </div>
-      </Card>
-
       <div className="chips-card-list">
         <PersonChipCard
           personId="dongdong"

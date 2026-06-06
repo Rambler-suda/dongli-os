@@ -14,10 +14,6 @@ export function GreetingCard({ greeting }: GreetingCardProps) {
         <h1>{greeting.mainText}</h1>
         <p>{greeting.subText}</p>
       </div>
-      <button className="home-greeting-card__surprise" type="button" aria-label="今日彩蛋">
-        <span aria-hidden="true">✦</span>
-        TODAY
-      </button>
     </header>
   );
 }

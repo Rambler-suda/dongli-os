@@ -14,19 +14,18 @@ beforeEach(() => {
 afterEach(cleanup);
 
 describe("HomePage", () => {
-  it("shows core status cards and persists daily content caches", async () => {
+  it("shows core status cards and persists the daily greeting cache", async () => {
     render(<HomePage />);
 
     expect(screen.getByText("我们已经在一起")).toBeTruthy();
     expect(screen.getByLabelText("冻冻和梨梨双人像素场景")).toBeTruthy();
     expect(screen.getByText("正式双人像素场景待替换")).toBeTruthy();
     expect(screen.getByText("生日提醒")).toBeTruthy();
-    expect(screen.getByText("今日一句")).toBeTruthy();
+    expect(screen.queryByText("今日提醒")).toBeNull();
+    expect(screen.queryByText("今日一句")).toBeNull();
 
     await waitFor(() => {
       expect(appStore.getState().home.dailyGreetingCache).not.toBeNull();
-      expect(appStore.getState().home.dailyQuoteCache).not.toBeNull();
-      expect(appStore.getState().home.dailyReminderCache).not.toBeNull();
     });
   });
 
