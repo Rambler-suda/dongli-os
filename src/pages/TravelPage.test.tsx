@@ -48,6 +48,7 @@ describe("TravelPage", () => {
     await user.click(within(updatedCard!).getByRole("button", { name: "点亮" }));
     expect(appStore.getState().travelItems[0].status).toBe("visited");
     expect(screen.getByText("已点亮 1 / 总共 9")).toBeTruthy();
+    expect(within(updatedCard!).getByLabelText("已点亮")).toBeTruthy();
 
     await user.click(within(updatedCard!).getByRole("button", { name: "取消点亮" }));
     expect(appStore.getState().travelItems[0].status).toBe("want");
@@ -68,5 +69,6 @@ describe("TravelPage", () => {
 
     expect(screen.getByText("这里还空着")).toBeTruthy();
     expect(screen.getByText("等你们一起去填满。")).toBeTruthy();
+    expect(screen.getByLabelText("像素旅行图标")).toBeTruthy();
   });
 });

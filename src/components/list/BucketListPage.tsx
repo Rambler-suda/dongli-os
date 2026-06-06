@@ -151,7 +151,7 @@ export function BucketListPage({
 
       {items.length === 0 ? (
         <EmptyState
-          icon={tone === "travel" ? "⌖" : "♡"}
+          tone={tone}
           title={emptyTitle}
           description={emptyDescription}
           actionLabel={addButtonLabel}

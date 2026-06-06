@@ -10,7 +10,7 @@ html {
 body {
   margin: 0;
   min-width: 320px;
-  min-height: 100vh;
+  min-height: 100dvh;
   background: var(--color-bg-deep);
   color: var(--color-text);
   font-family: var(--font-system);
@@ -328,7 +328,7 @@ p {
   padding:
     calc(var(--space-6) + env(safe-area-inset-top))
     var(--page-padding-x)
-    calc(var(--tabbar-height) + var(--space-7) + env(safe-area-inset-bottom));
+    calc(var(--tabbar-height) + var(--space-8) + env(safe-area-inset-bottom));
 }
 
 .page {
@@ -381,7 +381,7 @@ p {
 
 .relationship-card {
   position: relative;
-  min-height: 252px;
+  min-height: 302px;
   overflow: hidden;
   padding: var(--space-6);
 }
@@ -427,6 +427,7 @@ p {
 
 .relationship-card__meta {
   display: flex;
+  max-width: 148px;
   margin-top: var(--space-6);
   flex-direction: column;
   gap: var(--space-1);
@@ -683,10 +684,10 @@ p {
 }
 
 .card {
-  border: 1px solid var(--color-border);
+  border: 1px solid rgba(255, 255, 255, 0.78);
   border-radius: var(--radius-lg);
   background: var(--color-surface);
-  box-shadow: var(--shadow-card);
+  box-shadow: var(--shadow-card), inset 0 0 0 1px var(--color-border);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
 }
@@ -1080,7 +1081,7 @@ p {
 
 .add-item-button {
   display: inline-flex;
-  min-height: 42px;
+  min-height: 44px;
   cursor: pointer;
   align-items: center;
   gap: var(--space-1);
@@ -1229,7 +1230,7 @@ p {
 
 .bucket-toggle-button,
 .icon-text-button {
-  min-height: 36px;
+  min-height: 44px;
   cursor: pointer;
   border: 0;
   border-radius: var(--radius-pill);
@@ -1455,8 +1456,8 @@ p {
 }
 
 .danger-button {
-  background: #efe1de;
-  color: #956d66;
+  background: #f1ece5;
+  color: #896f65;
 }
 
 .dialog-backdrop {
@@ -1534,42 +1535,342 @@ p {
 }
 
 .chips-summary {
-  min-height: 142px;
+  min-height: 166px;
 }
 
-.person-card {
-  display: flex;
-  min-height: 210px;
-  flex-direction: column;
+.chips-rule-hero {
   align-items: center;
-  justify-content: center;
-  padding: var(--space-4);
-  text-align: center;
+  gap: var(--space-4);
 }
 
-.person-card strong {
-  margin: var(--space-2) 0 var(--space-3);
-  font-size: 36px;
-  letter-spacing: -0.04em;
+.chips-rule-hero > div:first-child {
+  position: relative;
+  z-index: 1;
 }
 
-.avatar-placeholder {
+.chips-rule-hero strong {
+  max-width: 250px;
+  font-size: 22px;
+}
+
+.chips-rule-hero > div:first-child > span {
+  display: block;
+  margin-top: var(--space-3);
+  color: var(--color-text-secondary);
+  font-size: 11px;
+}
+
+.chips-rule-hero__mark {
+  position: relative;
+  z-index: 1;
   display: grid;
-  width: 58px;
-  height: 58px;
-  margin-bottom: var(--space-3);
+  width: 86px;
+  min-width: 86px;
+  height: 86px;
   place-items: center;
-  border: 1px solid rgba(102, 128, 107, 0.14);
-  border-radius: 22px;
-  background: var(--color-pear-light);
+  border: 1px solid rgba(255, 255, 255, 0.72);
+  border-radius: 31px;
+  background: rgba(255, 255, 252, 0.58);
+  box-shadow: 0 16px 28px rgba(75, 96, 77, 0.1);
   color: var(--color-pear-dark);
-  font-size: 19px;
+  transform: rotate(4deg);
+}
+
+.chips-rule-hero__mark span {
+  align-self: end;
+  font-size: 27px;
+  font-weight: 800;
+  letter-spacing: -0.06em;
+}
+
+.chips-rule-hero__mark small {
+  align-self: start;
+  color: var(--color-text-secondary);
+  font-size: 8px;
   font-weight: 700;
 }
 
-.avatar-placeholder--light {
-  background: var(--color-yellow-soft);
-  color: #8c7c55;
+.chips-card-list {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.person-chip-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  overflow: hidden;
+  padding: var(--space-5);
+  background:
+    radial-gradient(circle at 100% 0%, rgba(220, 232, 246, 0.62), transparent 42%),
+    var(--color-surface);
+}
+
+.person-chip-card[data-person="lili"] {
+  background:
+    radial-gradient(circle at 100% 0%, rgba(239, 231, 241, 0.72), transparent 42%),
+    var(--color-surface);
+}
+
+.person-chip-card__header {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.person-chip-card__header h2 {
+  margin-top: 2px;
+  font-size: 20px;
+  letter-spacing: -0.035em;
+}
+
+.person-chip-card__header .pixel-badge {
+  margin-top: 6px;
+}
+
+.chip-balance {
+  display: flex;
+  min-width: 60px;
+  flex-direction: column;
+  align-items: flex-end;
+  color: var(--color-pear-dark);
+}
+
+.chip-balance strong {
+  font-size: 29px;
+  line-height: 1;
+  letter-spacing: -0.05em;
+}
+
+.chip-balance small {
+  margin-top: 3px;
+  color: var(--color-text-tertiary);
+  font-size: 9px;
+  font-weight: 700;
+}
+
+.pixel-avatar {
+  position: relative;
+  display: block;
+  width: 64px;
+  height: 64px;
+  overflow: hidden;
+  border: 1px solid rgba(102, 128, 107, 0.12);
+  border-radius: 23px;
+  background: linear-gradient(145deg, #eff5ec, #dbe9d7);
+  box-shadow: inset 0 1px rgba(255, 255, 255, 0.74);
+}
+
+.pixel-avatar[data-person="lili"] {
+  border-color: rgba(153, 126, 147, 0.1);
+  background: linear-gradient(145deg, #f8f1f4, #eee2eb);
+}
+
+.pixel-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.pixel-avatar__pear {
+  position: absolute;
+  right: 13px;
+  bottom: 8px;
+  display: grid;
+  width: 39px;
+  height: 43px;
+  place-items: center;
+  border-radius: 53% 47% 48% 52% / 61% 61% 39% 39%;
+  background: linear-gradient(145deg, #bad3b3, #95bb91);
+  color: #496c4c;
+  transform: rotate(-4deg);
+}
+
+.pixel-avatar[data-person="lili"] .pixel-avatar__pear {
+  background: linear-gradient(145deg, #d9c9d6, #c6aec1);
+  color: #765b70;
+}
+
+.pixel-avatar__leaf {
+  position: absolute;
+  z-index: 1;
+  top: 8px;
+  right: 13px;
+  width: 18px;
+  height: 10px;
+  border-radius: 100% 10% 100% 10%;
+  background: var(--color-pear-dark);
+  transform: rotate(-24deg);
+}
+
+.pixel-avatar__face {
+  font-size: 9px;
+  font-weight: 800;
+  transform: rotate(4deg);
+}
+
+.person-chip-card__assets {
+  min-height: 104px;
+  padding: var(--space-4);
+  border: 1px solid rgba(102, 128, 107, 0.1);
+  border-radius: var(--radius-md);
+  background: rgba(244, 247, 241, 0.78);
+}
+
+.person-chip-card[data-person="lili"] .person-chip-card__assets {
+  border-color: rgba(153, 126, 147, 0.09);
+  background: rgba(248, 243, 247, 0.78);
+}
+
+.person-chip-card__assets > p {
+  color: var(--color-text-tertiary);
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.chip-assets-empty {
+  display: grid;
+  min-height: 55px;
+  place-items: center;
+  color: var(--color-text-tertiary);
+  font-size: 11px;
+}
+
+.chip-assets {
+  display: flex;
+  min-height: 55px;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-4);
+  padding-top: var(--space-3);
+}
+
+.chip-asset-group {
+  display: grid;
+  gap: var(--space-1);
+}
+
+.chip-asset-group strong {
+  color: var(--color-text-tertiary);
+  font-size: 9px;
+  font-weight: 700;
+}
+
+.chip-asset-icons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.chip-asset-icon {
+  display: grid;
+  width: 25px;
+  height: 25px;
+  place-items: center;
+  border-radius: 9px;
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.chip-asset-icon[data-type="wish"] {
+  background: #e4eee0;
+  color: var(--color-pear-dark);
+}
+
+.chip-asset-icon[data-type="wish"]:last-child {
+  animation: chip-wish-glow 1.8s ease-in-out infinite;
+}
+
+.chip-asset-icon[data-type="hand"] {
+  background: #f1e8df;
+  color: #957b67;
+}
+
+.chip-asset-icon[data-type="hand"]:last-child {
+  animation: chip-hand-hop 320ms ease-out;
+}
+
+.chip-actions {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-2);
+}
+
+.chip-actions button {
+  display: flex;
+  min-width: 0;
+  min-height: 60px;
+  cursor: pointer;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: var(--color-pear-light);
+  color: var(--color-pear-dark);
+  transition: transform 160ms ease, opacity 160ms ease, background-color 160ms ease;
+}
+
+.chip-actions button:active {
+  transform: scale(0.96);
+}
+
+.chip-actions button:disabled {
+  cursor: default;
+  opacity: 0.38;
+}
+
+.chip-actions button strong {
+  font-size: 14px;
+  letter-spacing: -0.02em;
+}
+
+.chip-actions button span {
+  overflow: hidden;
+  max-width: 100%;
+  color: var(--color-text-secondary);
+  font-size: 8px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.chip-actions .chip-reset-button {
+  background: #f3ebe8;
+  color: #976f67;
+}
+
+.chip-note-card {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-5);
+}
+
+.chip-note-card__icon {
+  display: grid;
+  width: 48px;
+  min-width: 48px;
+  height: 48px;
+  place-items: center;
+  border-radius: 18px;
+  background: var(--color-pear-light);
+  color: var(--color-pear-dark);
+  font-size: 18px;
+}
+
+.chip-note-card h3 {
+  margin-top: var(--space-1);
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.chip-note-card p:last-child {
+  margin-top: var(--space-2);
+  color: var(--color-text-secondary);
+  font-size: 10px;
+  line-height: 1.6;
 }
 
 .bottom-tabbar {
@@ -1660,6 +1961,19 @@ p {
   from {
     opacity: 0;
     transform: translate(-50%, 8px);
+  }
+}
+
+@keyframes chip-hand-hop {
+  50% {
+    transform: translateY(-2px) scale(1.04);
+  }
+}
+
+@keyframes chip-wish-glow {
+  50% {
+    box-shadow: 0 0 0 4px rgba(191, 211, 190, 0.2);
+    transform: scale(1.04);
   }
 }
 

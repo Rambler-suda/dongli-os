@@ -18,6 +18,9 @@ describe("HomePage", () => {
     render(<HomePage />);
 
     expect(screen.getByText("我们已经在一起")).toBeTruthy();
+    expect(screen.getByLabelText("冻冻和梨梨的像素小世界")).toBeTruthy();
+    expect(screen.getByLabelText("冻冻的像素形象")).toBeTruthy();
+    expect(screen.getByLabelText("梨梨的像素形象")).toBeTruthy();
     expect(screen.getByText("生日提醒")).toBeTruthy();
     expect(screen.getByText("今日一句")).toBeTruthy();
 

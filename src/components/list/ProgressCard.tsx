@@ -1,4 +1,5 @@
 import { Card } from "../ui/Card";
+import { PixelIcon } from "../pixel/PixelIcon";
 
 type ProgressCardProps = {
   label: string;
@@ -32,6 +33,11 @@ export function ProgressCard({
         aria-label={`当前进度 ${percentage}%`}
       >
         <span>{percentage}%</span>
+      </div>
+      <div className="bucket-progress-pixels" aria-hidden="true">
+        <PixelIcon name={tone === "travel" ? "pin" : "heart"} />
+        <PixelIcon name="star" />
+        <PixelIcon name="leaf" />
       </div>
     </Card>
   );

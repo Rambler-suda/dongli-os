@@ -44,6 +44,7 @@ describe("LovePage", () => {
     await user.click(within(updatedCard!).getByRole("button", { name: "完成" }));
     expect(appStore.getState().loveItems[0].status).toBe("done");
     expect(screen.getByText("已完成 1 / 总共 12")).toBeTruthy();
+    expect(within(updatedCard!).getByLabelText("回忆 +1")).toBeTruthy();
 
     await user.click(within(updatedCard!).getByRole("button", { name: "取消完成" }));
     expect(appStore.getState().loveItems[0].status).toBe("todo");
@@ -65,5 +66,6 @@ describe("LovePage", () => {
 
     expect(screen.getByText("还没有想一起做的小事")).toBeTruthy();
     expect(screen.getByText("要不要先加一个？")).toBeTruthy();
+    expect(screen.getByLabelText("冻冻和梨梨的像素小世界")).toBeTruthy();
   });
 });

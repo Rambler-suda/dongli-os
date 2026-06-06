@@ -1,3 +1,4 @@
+import { PixelWorld } from "../pixel/PixelWorld";
 import { Card } from "../ui/Card";
 
 type RelationshipCardProps = {
@@ -25,11 +26,7 @@ export function RelationshipCard({
           <span>{daysUntilAnniversary === 0 ? "今天值得庆祝" : anniversaryText}</span>
         </div>
       </div>
-      <div className="relationship-orbit" aria-hidden="true">
-        <span />
-        <span />
-        <i>✦</i>
-      </div>
+      <PixelWorld />
     </Card>
   );
 }

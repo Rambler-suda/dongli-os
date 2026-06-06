@@ -29,6 +29,12 @@ export function BucketItemCard({
 }: BucketItemCardProps) {
   return (
     <article className="bucket-item-card" data-completed={isCompleted} data-tone={tone}>
+      {isCompleted && (
+        <PixelStamp
+          tone={tone}
+          label={tone === "travel" ? "已点亮" : "回忆 +1"}
+        />
+      )}
       <div className="bucket-item-card__top">
         <div className="bucket-item-card__emoji" aria-hidden="true">
           {emoji}
@@ -36,7 +42,15 @@ export function BucketItemCard({
         <div className="bucket-item-card__content">
           <div className="bucket-item-card__title-row">
             <h2>{title}</h2>
-            <span className="bucket-status">{isCompleted ? completedLabel : pendingLabel}</span>
+            {isCompleted ? (
+              <PixelBadge
+                tone={tone}
+                icon={tone === "travel" ? "pin" : "heart"}
+                label={completedLabel}
+              />
+            ) : (
+              <span className="bucket-status">{pendingLabel}</span>
+            )}
           </div>
           <p>{description || "先留一点空白，等以后慢慢补上。"}</p>
         </div>
@@ -58,3 +72,5 @@ export function BucketItemCard({
     </article>
   );
 }
+import { PixelBadge } from "../pixel/PixelBadge";
+import { PixelStamp } from "../pixel/PixelStamp";
