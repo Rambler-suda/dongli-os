@@ -121,6 +121,21 @@ describe("appStore", () => {
     expect(refreshedState.profiles.lili.displayName).toBe("梨梨");
   });
 
+  it("persists home daily caches", () => {
+    const storage = createMemoryStorage();
+    const store = createAppStore(storage);
+
+    store.getState().setHomeCache("dailyQuoteCache", {
+      key: "2026-06-06-quote",
+      value: "今天也要认真生活。",
+    });
+
+    expect(createAppStore(storage).getState().home.dailyQuoteCache).toEqual({
+      key: "2026-06-06-quote",
+      value: "今天也要认真生活。",
+    });
+  });
+
   it("restores all data to defaults", () => {
     const store = createAppStore(createMemoryStorage());
 

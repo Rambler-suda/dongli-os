@@ -78,6 +78,15 @@ export function createAppStore(
             updatedAt: now(),
           })),
 
+        setHomeCache: (cacheName, cache) =>
+          set((state) => ({
+            home: {
+              ...state.home,
+              [cacheName]: cache,
+            },
+            updatedAt: now(),
+          })),
+
         resetAppData: () => set(createDefaultState()),
 
         addTravelItem: (input: TravelItemInput) =>

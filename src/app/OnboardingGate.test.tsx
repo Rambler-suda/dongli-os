@@ -40,13 +40,13 @@ describe("OnboardingGate", () => {
     await user.type(liliInput, "梨梨");
     await user.click(screen.getByRole("button", { name: "完成，进入首页" }));
 
-    expect(screen.getByRole("heading", { name: "今天也一起，好好生活" })).toBeTruthy();
+    expect(screen.getByText("我们已经在一起")).toBeTruthy();
     expect(appStore.getState().profiles.dongdong.displayName).toBe("冻冻");
     expect(appStore.getState().profiles.lili.displayName).toBe("梨梨");
 
     view.unmount();
     render(<OnboardingGate />);
-    expect(screen.getByRole("heading", { name: "今天也一起，好好生活" })).toBeTruthy();
+    expect(screen.getByText("我们已经在一起")).toBeTruthy();
   });
 
   it("returns to the passcode page after resetAppData", async () => {
@@ -54,7 +54,7 @@ describe("OnboardingGate", () => {
     appStore.getState().completeProfileSetup();
     render(<OnboardingGate />);
 
-    expect(screen.getByRole("heading", { name: "今天也一起，好好生活" })).toBeTruthy();
+    expect(screen.getByText("我们已经在一起")).toBeTruthy();
 
     appStore.getState().resetAppData();
 

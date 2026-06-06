@@ -1,41 +1,51 @@
-import { Card } from "../components/ui/Card";
-import { PageHeader } from "../components/ui/PageHeader";
+import { BucketListPage } from "../components/list/BucketListPage";
+import { useAppStore } from "../store/appStore";
 
 export function LovePage() {
+  const loveItems = useAppStore((state) => state.loveItems);
+  const addLoveItem = useAppStore((state) => state.addLoveItem);
+  const updateLoveItem = useAppStore((state) => state.updateLoveItem);
+  const deleteLoveItem = useAppStore((state) => state.deleteLoveItem);
+  const markLoveDone = useAppStore((state) => state.markLoveDone);
+  const undoLoveDone = useAppStore((state) => state.undoLoveDone);
+
   return (
-    <section className="page">
-      <PageHeader
-        eyebrow="Love list"
-        title="想一起完成的小事"
-        description="不是任务清单，是值得慢慢点亮的共同期待。"
-      />
-
-      <Card className="progress-card progress-card--love">
-        <div>
-          <p className="card-label">共同期待</p>
-          <strong>从一件小事开始</strong>
-        </div>
-        <span className="large-symbol" aria-hidden="true">♡</span>
-      </Card>
-
-      <div className="section-heading">
-        <h2>Love 清单</h2>
-        <span>基础结构预览</span>
-      </div>
-
-      <Card className="list-placeholder">
-        <span className="list-marker list-marker--love">01</span>
-        <div>
-          <h3>一起完成一件期待很久的小事</h3>
-          <p>完成状态与编辑功能将在后续阶段接入。</p>
-        </div>
-        <span className="soft-tag soft-tag--love">期待</span>
-      </Card>
-      <Card className="empty-card" tone="soft">
-        <div className="empty-illustration empty-illustration--love" aria-hidden="true">✦</div>
-        <h3>以后会慢慢装满</h3>
-        <p>每一项都应该有属于你们的意义。</p>
-      </Card>
-    </section>
+    <BucketListPage
+      tone="love"
+      eyebrow="Love list"
+      title="Love List"
+      description="想一起完成的事，一件一件慢慢来。"
+      progressLabel="共同期待"
+      completedCountLabel="已完成"
+      itemLabel="事项"
+      defaultEmoji="✨"
+      items={loveItems.map((item) => ({
+        id: item.id,
+        title: item.title,
+        description: item.description,
+        emoji: item.emoji,
+        isCompleted: item.status === "done",
+      }))}
+      pendingLabel="想做"
+      completedLabel="已完成"
+      completeActionLabel="完成"
+      undoActionLabel="取消完成"
+      addButtonLabel="添加事项"
+      emptyTitle="还没有想一起做的小事"
+      emptyDescription="要不要先加一个？"
+      deleteMessage="确定要删除这件想一起完成的小事吗？"
+      feedback={{
+        added: "已加入 Love List",
+        updated: "已更新",
+        deleted: "已删除",
+        completed: "这件事，已经变成我们的回忆啦。",
+        undone: "已恢复为想做。",
+      }}
+      onAdd={addLoveItem}
+      onUpdate={updateLoveItem}
+      onDelete={deleteLoveItem}
+      onComplete={markLoveDone}
+      onUndo={undoLoveDone}
+    />
   );
 }

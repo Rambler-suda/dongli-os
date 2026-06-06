@@ -1,57 +1,72 @@
-import { Card } from "../components/ui/Card";
-import { PageHeader } from "../components/ui/PageHeader";
+import { useEffect, useState } from "react";
+import { BirthdayCard } from "../components/home/BirthdayCard";
+import { DailyQuoteCard } from "../components/home/DailyQuoteCard";
+import { DailyReminderCard } from "../components/home/DailyReminderCard";
+import { GreetingCard } from "../components/home/GreetingCard";
+import { QuickActionCards } from "../components/home/QuickActionCards";
+import { RelationshipCard } from "../components/home/RelationshipCard";
+import {
+  getAnniversaryText,
+  getDaysUntilNextAnniversary,
+  getRelationshipDays,
+} from "../domain/anniversary";
+import { getBirthdayReminder } from "../domain/birthday";
+import { getTodayQuote, getTodayReminder } from "../domain/dailyContent";
+import { getTodayGreeting } from "../domain/greeting";
+import { useAppStore } from "../store/appStore";
 
 export function HomePage() {
+  const [today, setToday] = useState(() => new Date());
+  const profiles = useAppStore((state) => state.profiles);
+  const home = useAppStore((state) => state.home);
+  const setHomeCache = useAppStore((state) => state.setHomeCache);
+  const setCurrentTab = useAppStore((state) => state.setCurrentTab);
+
+  const greeting = getTodayGreeting(today, home.dailyGreetingCache);
+  const quoteCache = getTodayQuote(today, home.dailyQuoteCache);
+  const { reminder, cache: reminderCache } = getTodayReminder(
+    today,
+    home.dailyReminderCache,
+  );
+  const birthdayReminder = getBirthdayReminder(profiles, today);
+
+  useEffect(() => {
+    const timer = window.setInterval(() => setToday(new Date()), 60_000);
+    return () => window.clearInterval(timer);
+  }, []);
+
+  useEffect(() => {
+    if (home.dailyGreetingCache?.key !== greeting.cache.key) {
+      setHomeCache("dailyGreetingCache", greeting.cache);
+    }
+    if (home.dailyQuoteCache?.key !== quoteCache.key) {
+      setHomeCache("dailyQuoteCache", quoteCache);
+    }
+    if (home.dailyReminderCache?.key !== reminderCache.key) {
+      setHomeCache("dailyReminderCache", reminderCache);
+    }
+  }, [
+    greeting.cache,
+    home.dailyGreetingCache?.key,
+    home.dailyQuoteCache?.key,
+    home.dailyReminderCache?.key,
+    quoteCache,
+    reminderCache,
+    setHomeCache,
+  ]);
+
   return (
     <section className="page page--home">
-      <PageHeader
-        eyebrow="DL universe"
-        title="今天也一起，好好生活"
-        description="一个安静的小面板，放下属于你们的日常。"
+      <GreetingCard greeting={greeting} />
+      <RelationshipCard
+        relationshipDays={getRelationshipDays(today)}
+        daysUntilAnniversary={getDaysUntilNextAnniversary(today)}
+        anniversaryText={getAnniversaryText(today)}
       />
-
-      <Card className="hero-card" tone="pear">
-        <div>
-          <span className="status-pill">我们的时间</span>
-          <p className="hero-kicker">在一起的每一天</p>
-          <strong>正在认真累积中</strong>
-        </div>
-        <div className="pear-orbit" aria-hidden="true">
-          <span />
-          <span />
-        </div>
-      </Card>
-
-      <div className="section-heading">
-        <h2>今日面板</h2>
-        <span>轻轻看一眼</span>
-      </div>
-
-      <div className="card-grid">
-        <Card className="compact-card">
-          <span className="card-symbol card-symbol--blue" aria-hidden="true">☀</span>
-          <div>
-            <p className="card-label">今日提醒</p>
-            <h3>照顾好今天</h3>
-          </div>
-        </Card>
-        <Card className="compact-card">
-          <span className="card-symbol card-symbol--pink" aria-hidden="true">✦</span>
-          <div>
-            <p className="card-label">今日一句</p>
-            <h3>慢慢积攒小幸福</h3>
-          </div>
-        </Card>
-      </div>
-
-      <Card className="placeholder-card">
-        <div className="placeholder-icon" aria-hidden="true">⌂</div>
-        <div>
-          <p className="card-label">接下来</p>
-          <h3>生日与纪念日提醒</h3>
-          <p>日期逻辑将在后续阶段接入。</p>
-        </div>
-      </Card>
+      <BirthdayCard reminder={birthdayReminder} />
+      <DailyReminderCard reminder={reminder} />
+      <DailyQuoteCard quote={quoteCache.value} />
+      <QuickActionCards onNavigate={setCurrentTab} />
     </section>
   );
 }

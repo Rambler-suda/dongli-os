@@ -16,7 +16,8 @@ export type ProfilePatch = Partial<
 >;
 
 export type DailyCache = {
-  date: string;
+  key: string;
+  label?: string;
   value: string;
 };
 
@@ -76,6 +77,10 @@ export type AppActions = {
   unlockApp: () => void;
   completeProfileSetup: () => void;
   updateProfile: (profileId: PersonId, patch: ProfilePatch) => void;
+  setHomeCache: (
+    cacheName: "dailyGreetingCache" | "dailyQuoteCache" | "dailyReminderCache",
+    cache: DailyCache,
+  ) => void;
   resetAppData: () => void;
   addTravelItem: (input: TravelItemInput) => void;
   updateTravelItem: (id: string, patch: TravelItemPatch) => void;
