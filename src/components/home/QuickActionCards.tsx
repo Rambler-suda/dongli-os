@@ -1,32 +1,34 @@
 import type { TabId } from "../../store/types";
+import { QuickEntryIcon } from "../illustrations/QuickEntryIcon";
 
 type QuickActionCardsProps = {
   onNavigate: (tab: TabId) => void;
 };
 
 const actions: Array<{
-  tab: Exclude<TabId, "home">;
-  icon: string;
+  tab: TabId;
   title: string;
   description: string;
 }> = [
   {
+    tab: "home",
+    title: "今日状态",
+    description: "看看属于我们的今天",
+  },
+  {
     tab: "travel",
-    icon: "⌖",
-    title: "去旅游 LIST 添加一个地方",
-    description: "下一站，先记下来",
+    title: "旅游 LIST",
+    description: "下一站慢慢点亮",
   },
   {
     tab: "love",
-    icon: "♡",
-    title: "去 Love List 添加一件小事",
-    description: "把共同期待慢慢点亮",
+    title: "Love List",
+    description: "一起完成一件小事",
   },
   {
     tab: "chips",
-    icon: "✦",
-    title: "去筹码记一笔小手",
-    description: "愿赌服输，轻轻来",
+    title: "筹码",
+    description: "记下一笔小手",
   },
 ];
 
@@ -35,7 +37,7 @@ export function QuickActionCards({ onNavigate }: QuickActionCardsProps) {
     <section className="quick-actions" aria-labelledby="quick-actions-title">
       <div className="section-heading">
         <h2 id="quick-actions-title">一起去做点什么</h2>
-        <span>轻量入口</span>
+        <span>QUICK ACCESS</span>
       </div>
       <div className="quick-actions__list">
         {actions.map((action) => (
@@ -45,14 +47,12 @@ export function QuickActionCards({ onNavigate }: QuickActionCardsProps) {
             type="button"
             onClick={() => onNavigate(action.tab)}
           >
-            <span className="quick-action__icon" aria-hidden="true">
-              {action.icon}
-            </span>
-            <span>
+            <QuickEntryIcon entry={action.tab} />
+            <span className="quick-action__copy">
               <strong>{action.title}</strong>
               <small>{action.description}</small>
             </span>
-            <i aria-hidden="true">›</i>
+            <i aria-hidden="true">↗</i>
           </button>
         ))}
       </div>

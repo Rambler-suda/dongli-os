@@ -18,9 +18,8 @@ describe("HomePage", () => {
     render(<HomePage />);
 
     expect(screen.getByText("我们已经在一起")).toBeTruthy();
-    expect(screen.getByLabelText("冻冻和梨梨的像素小世界")).toBeTruthy();
-    expect(screen.getByLabelText("冻冻的像素形象")).toBeTruthy();
-    expect(screen.getByLabelText("梨梨的像素形象")).toBeTruthy();
+    expect(screen.getByLabelText("冻冻和梨梨双人像素场景")).toBeTruthy();
+    expect(screen.getByText("正式双人像素场景待替换")).toBeTruthy();
     expect(screen.getByText("生日提醒")).toBeTruthy();
     expect(screen.getByText("今日一句")).toBeTruthy();
 
@@ -35,7 +34,7 @@ describe("HomePage", () => {
     const user = userEvent.setup();
     render(<HomePage />);
 
-    await user.click(screen.getByRole("button", { name: /去旅游 LIST 添加一个地方/ }));
+    await user.click(screen.getByRole("button", { name: /旅游 LIST/ }));
     expect(appStore.getState().appStatus.currentTab).toBe("travel");
   });
 });

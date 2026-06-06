@@ -1,4 +1,4 @@
-import { PixelWorld } from "../pixel/PixelWorld";
+import { QuickEntryIcon } from "../illustrations/QuickEntryIcon";
 import { PixelIcon } from "../pixel/PixelIcon";
 
 type EmptyStateProps = {
@@ -19,7 +19,7 @@ export function EmptyState({
   return (
     <section className="bucket-empty-state">
       {tone === "love" ? (
-        <PixelWorld compact />
+        <QuickEntryIcon entry="love" />
       ) : (
         <div className="bucket-empty-state__pixel-icon">
           <PixelIcon name="pin" label="像素旅行图标" />

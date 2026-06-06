@@ -1,5 +1,5 @@
 import type { CoupleProfile, PersonId } from "../../store/types";
-import { PixelAvatar } from "../pixel/PixelAvatar";
+import { CharacterPortrait } from "../illustrations/CharacterPortrait";
 import { PixelBadge } from "../pixel/PixelBadge";
 import { Card } from "../ui/Card";
 import { ChipAssetDisplay } from "./ChipAssetDisplay";
@@ -24,12 +24,10 @@ export function PersonChipCard({
   return (
     <Card className="person-chip-card" data-person={personId}>
       <header className="person-chip-card__header">
-        <PixelAvatar
+        <CharacterPortrait
           character={personId}
-          mood={personId === "dongdong" ? "idle" : "dance"}
-          size="lg"
           assetSrc={profile.realAvatarUrl}
-          label={profile.displayName}
+          displayName={profile.displayName}
         />
         <div>
           <p className="card-label">{personId === "dongdong" ? "冻冻的筹码" : "梨梨的筹码"}</p>

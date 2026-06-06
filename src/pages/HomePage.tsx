@@ -64,8 +64,10 @@ export function HomePage() {
         anniversaryText={getAnniversaryText(today)}
       />
       <BirthdayCard reminder={birthdayReminder} />
-      <DailyReminderCard reminder={reminder} />
-      <DailyQuoteCard quote={quoteCache.value} />
+      <div className="home-daily-grid">
+        <DailyReminderCard reminder={reminder} />
+        <DailyQuoteCard quote={quoteCache.value} />
+      </div>
       <QuickActionCards onNavigate={setCurrentTab} />
     </section>
   );

@@ -28,7 +28,7 @@ describe("ChipsPage", () => {
     const dongdongCard = getPersonCard("大冻梨");
     const actions = within(dongdongCard).getAllByRole("button");
 
-    expect(within(dongdongCard).getByLabelText("大冻梨的像素形象")).toBeTruthy();
+    expect(within(dongdongCard).getByLabelText("大冻梨角色插画")).toBeTruthy();
     expect(within(dongdongCard).getByText("冷静记账员")).toBeTruthy();
     expect(within(dongdongCard).getByText("暂无小手资产")).toBeTruthy();
     expect(actions[2].hasAttribute("disabled")).toBe(true);
@@ -65,7 +65,7 @@ describe("ChipsPage", () => {
     const liliCard = getPersonCard("婷婷");
     const actions = within(liliCard).getAllByRole("button");
 
-    expect(within(liliCard).getByLabelText("婷婷的像素形象")).toBeTruthy();
+    expect(within(liliCard).getByLabelText("婷婷角色插画")).toBeTruthy();
     expect(within(liliCard).getByText("灵动小赢家")).toBeTruthy();
     expect(actions[2].hasAttribute("disabled")).toBe(true);
     await user.click(actions[2]);

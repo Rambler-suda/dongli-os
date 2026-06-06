@@ -66,6 +66,6 @@ describe("LovePage", () => {
 
     expect(screen.getByText("还没有想一起做的小事")).toBeTruthy();
     expect(screen.getByText("要不要先加一个？")).toBeTruthy();
-    expect(screen.getByLabelText("冻冻和梨梨的像素小世界")).toBeTruthy();
+    expect(screen.getByLabelText("Love List 插画")).toBeTruthy();
   });
 });

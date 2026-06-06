@@ -8,11 +8,14 @@ type BirthdayCardProps = {
 export function BirthdayCard({ reminder }: BirthdayCardProps) {
   return (
     <Card className="birthday-card">
-      <div className="home-card-heading">
-        <div className="home-card-icon home-card-icon--birthday" aria-hidden="true">
+      <div className="home-widget-heading">
+        <div className="home-widget-icon home-widget-icon--birthday" aria-hidden="true">
           ♡
         </div>
-        <span>生日提醒</span>
+        <div>
+          <span>生日提醒</span>
+          <strong>Birthday</strong>
+        </div>
       </div>
       <h2>{reminder.title}</h2>
       <p>{reminder.message}</p>
