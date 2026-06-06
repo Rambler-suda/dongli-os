@@ -69,6 +69,6 @@ describe("TravelPage", () => {
 
     expect(screen.getByText("这里还空着")).toBeTruthy();
     expect(screen.getByText("等你们一起去填满。")).toBeTruthy();
-    expect(screen.getByLabelText("像素旅行图标")).toBeTruthy();
+    expect(screen.getByLabelText("旅行清单空状态插画")).toBeTruthy();
   });
 });

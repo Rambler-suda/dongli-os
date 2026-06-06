@@ -45,26 +45,31 @@ export function PersonChipCard({
       </header>
 
       <div className="person-chip-card__assets">
-        <p>当前资产</p>
+        <div className="person-chip-card__assets-heading">
+          <p>当前资产</p>
+          <span>10 小手 = 1 小愿望</span>
+        </div>
         <ChipAssetDisplay totalHands={hands} />
       </div>
 
       <div className="chip-actions" aria-label={`${profile.displayName}的小手操作`}>
-        <button type="button" onClick={() => onAdd(1)}>
-          <strong>+1</strong>
-          <span>记一手</span>
-        </button>
-        <button type="button" onClick={() => onAdd(5)}>
-          <strong>+5</strong>
-          <span>赢五手</span>
-        </button>
-        <button type="button" onClick={onRemove} disabled={hands <= 0}>
-          <strong>-1</strong>
-          <span>兑现</span>
-        </button>
+        <div className="chip-actions__main">
+          <button type="button" onClick={() => onAdd(1)}>
+            <strong>+1</strong>
+            <span>记一手</span>
+          </button>
+          <button type="button" onClick={() => onAdd(5)}>
+            <strong>+5</strong>
+            <span>赢五手</span>
+          </button>
+          <button type="button" onClick={onRemove} disabled={hands <= 0}>
+            <strong>-1</strong>
+            <span>兑现</span>
+          </button>
+        </div>
         <button className="chip-reset-button" type="button" onClick={onReset} disabled={hands <= 0}>
-          <strong>清零</strong>
-          <span>重新开始</span>
+          <strong>清零余额</strong>
+          <span>需要再次确认</span>
         </button>
       </div>
     </Card>

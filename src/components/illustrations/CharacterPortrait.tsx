@@ -12,16 +12,19 @@ export function CharacterPortrait({
   assetSrc,
   displayName,
 }: CharacterPortraitProps) {
+  const isDongdong = character === "dongdong";
+
   return (
     <IllustrationAsset
       assetSrc={assetSrc}
       alt={`${displayName}角色插画`}
       className="character-portrait-asset"
-      tone={character === "dongdong" ? "blue" : "purple"}
-      label={assetSrc ? undefined : "角色插画待替换"}
+      tone={isDongdong ? "blue" : "purple"}
+      label={assetSrc ? undefined : "正式角色素材位"}
     >
-      <strong>{character === "dongdong" ? "D" : "L"}</strong>
-      <span>{character === "dongdong" ? "暗红发 · 黑 T" : "深紫发 · 舞蹈感"}</span>
+      <strong>{isDongdong ? "D" : "L"}</strong>
+      <span>{isDongdong ? "暗红发 · 黑 T · 白短裤" : "深紫发 · 细框眼镜"}</span>
+      <i>{isDongdong ? "高个子 · 安静轻酷" : "Jazz / Hiphop · 灵动酷甜"}</i>
     </IllustrationAsset>
   );
 }

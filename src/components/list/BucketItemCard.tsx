@@ -1,3 +1,6 @@
+import { PixelBadge } from "../pixel/PixelBadge";
+import { PixelStamp } from "../pixel/PixelStamp";
+
 type BucketItemCardProps = {
   emoji: string;
   title: string;
@@ -72,5 +75,3 @@ export function BucketItemCard({
     </article>
   );
 }
-import { PixelBadge } from "../pixel/PixelBadge";
-import { PixelStamp } from "../pixel/PixelStamp";

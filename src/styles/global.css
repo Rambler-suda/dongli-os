@@ -1650,66 +1650,6 @@ p {
   font-weight: 700;
 }
 
-.pixel-avatar {
-  position: relative;
-  display: block;
-  width: 64px;
-  height: 64px;
-  overflow: hidden;
-  border: 1px solid rgba(102, 128, 107, 0.12);
-  border-radius: 23px;
-  background: linear-gradient(145deg, #eff5ec, #dbe9d7);
-  box-shadow: inset 0 1px rgba(255, 255, 255, 0.74);
-}
-
-.pixel-avatar[data-person="lili"] {
-  border-color: rgba(153, 126, 147, 0.1);
-  background: linear-gradient(145deg, #f8f1f4, #eee2eb);
-}
-
-.pixel-avatar img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.pixel-avatar__pear {
-  position: absolute;
-  right: 13px;
-  bottom: 8px;
-  display: grid;
-  width: 39px;
-  height: 43px;
-  place-items: center;
-  border-radius: 53% 47% 48% 52% / 61% 61% 39% 39%;
-  background: linear-gradient(145deg, #bad3b3, #95bb91);
-  color: #496c4c;
-  transform: rotate(-4deg);
-}
-
-.pixel-avatar[data-person="lili"] .pixel-avatar__pear {
-  background: linear-gradient(145deg, #d9c9d6, #c6aec1);
-  color: #765b70;
-}
-
-.pixel-avatar__leaf {
-  position: absolute;
-  z-index: 1;
-  top: 8px;
-  right: 13px;
-  width: 18px;
-  height: 10px;
-  border-radius: 100% 10% 100% 10%;
-  background: var(--color-pear-dark);
-  transform: rotate(-24deg);
-}
-
-.pixel-avatar__face {
-  font-size: 9px;
-  font-weight: 800;
-  transform: rotate(4deg);
-}
-
 .person-chip-card__assets {
   min-height: 104px;
   padding: var(--space-4);
@@ -2940,4 +2880,491 @@ p {
 
 .bucket-item-card__emoji {
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.58);
+}
+
+/* Stage 8: shared visual language for Travel, Love, and Chips. */
+.bucket-page,
+.chips-page {
+  gap: 18px;
+}
+
+.bucket-page .page-header,
+.chips-page .page-header {
+  position: relative;
+  overflow: hidden;
+  padding: 18px 18px 19px;
+  border: 1px solid rgba(255, 255, 255, 0.78);
+  border-radius: 28px;
+  background:
+    radial-gradient(circle at 92% 8%, rgba(191, 211, 190, 0.22), transparent 35%),
+    rgba(255, 255, 255, 0.48);
+  box-shadow: var(--shadow-soft), inset 0 0 0 1px rgba(229, 229, 234, 0.38);
+}
+
+.bucket-page[data-tone="love"] .page-header {
+  background:
+    radial-gradient(circle at 92% 8%, rgba(243, 217, 223, 0.3), transparent 35%),
+    rgba(255, 255, 255, 0.48);
+}
+
+.bucket-page .page-header::after,
+.chips-page .page-header::after {
+  position: absolute;
+  top: 16px;
+  right: 17px;
+  color: rgba(111, 143, 119, 0.42);
+  content: "✦";
+  font-size: 12px;
+}
+
+.bucket-page[data-tone="love"] .page-header::after {
+  color: rgba(154, 117, 130, 0.36);
+}
+
+.bucket-page .page-header h1,
+.chips-page .page-header h1 {
+  font-size: clamp(27px, 7.5vw, 34px);
+}
+
+.bucket-page .page-header > p:last-child,
+.chips-page .page-header > p:last-child {
+  max-width: 300px;
+  margin-top: 8px;
+  font-size: 11px;
+  line-height: 1.65;
+}
+
+.bucket-progress-card,
+.chips-rule-hero {
+  border-radius: 30px;
+  box-shadow: var(--shadow-card), inset 0 0 0 1px rgba(255, 255, 255, 0.66);
+}
+
+.bucket-progress-card {
+  min-height: 148px;
+  padding: 22px;
+  background:
+    radial-gradient(circle at 92% 2%, rgba(255, 255, 255, 0.82), transparent 34%),
+    linear-gradient(145deg, rgba(247, 251, 245, 0.98), rgba(225, 237, 222, 0.88));
+}
+
+.bucket-progress-card[data-tone="love"] {
+  background:
+    radial-gradient(circle at 92% 2%, rgba(255, 255, 255, 0.84), transparent 34%),
+    linear-gradient(145deg, rgba(255, 252, 252, 0.98), rgba(243, 231, 237, 0.88));
+}
+
+.bucket-progress-card strong {
+  font-size: 20px;
+}
+
+.bucket-progress-ring {
+  width: 78px;
+  height: 78px;
+  box-shadow: 0 12px 28px rgba(74, 99, 78, 0.09);
+}
+
+.bucket-progress-ring::before {
+  width: 60px;
+  height: 60px;
+}
+
+.bucket-list-heading {
+  padding: 5px 4px 0;
+}
+
+.bucket-list-heading h2 {
+  font-size: 17px;
+}
+
+.add-item-button {
+  padding: 0 15px;
+  border: 1px solid rgba(255, 255, 255, 0.76);
+  background: rgba(218, 232, 213, 0.92);
+  box-shadow: var(--shadow-soft), inset 0 1px rgba(255, 255, 255, 0.65);
+}
+
+.bucket-page[data-tone="love"] .add-item-button {
+  background: rgba(239, 225, 231, 0.94);
+}
+
+.bucket-list {
+  gap: 12px;
+}
+
+.bucket-item-card {
+  gap: 15px;
+  padding: 17px;
+  border-radius: 24px;
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.88), rgba(251, 251, 253, 0.68));
+  box-shadow: var(--shadow-soft), inset 0 0 0 1px rgba(229, 229, 234, 0.48);
+}
+
+.bucket-item-card[data-completed="true"] {
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.92), rgba(235, 243, 232, 0.74));
+}
+
+.bucket-item-card[data-tone="love"][data-completed="true"] {
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.92), rgba(247, 236, 240, 0.76));
+}
+
+.bucket-item-card__emoji {
+  width: 48px;
+  height: 48px;
+  border-radius: 17px;
+  background: rgba(220, 232, 246, 0.68);
+  font-size: 21px;
+}
+
+.bucket-item-card[data-tone="love"] .bucket-item-card__emoji {
+  background: rgba(246, 228, 232, 0.72);
+}
+
+.bucket-item-card__title-row {
+  align-items: center;
+}
+
+.bucket-item-card h2 {
+  font-size: 15px;
+  line-height: 1.4;
+}
+
+.bucket-item-card__content > p {
+  margin-top: 6px;
+  color: var(--color-text-secondary);
+  font-size: 10px;
+  line-height: 1.6;
+}
+
+.bucket-status {
+  min-height: 25px;
+  padding: 0 9px;
+  border-radius: var(--radius-pill);
+  background: rgba(244, 245, 247, 0.86);
+  color: var(--color-text-tertiary);
+  font-size: 8px;
+}
+
+.bucket-item-card__actions {
+  padding-top: 13px;
+  border-top: 1px solid rgba(229, 229, 234, 0.58);
+}
+
+.bucket-toggle-button {
+  min-height: 44px;
+  padding: 0 13px;
+  border: 1px solid rgba(111, 143, 119, 0.1);
+  background: rgba(232, 240, 229, 0.74);
+  color: var(--color-pear-dark);
+}
+
+.bucket-page[data-tone="love"] .bucket-toggle-button {
+  border-color: rgba(154, 117, 130, 0.1);
+  background: rgba(246, 228, 232, 0.7);
+  color: #947481;
+}
+
+.icon-text-button {
+  min-height: 44px;
+  padding: 0 10px;
+}
+
+.icon-text-button--danger {
+  color: #9b827b;
+}
+
+.bucket-empty-state {
+  min-height: 265px;
+  padding: 28px 24px;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  border-radius: 30px;
+  background: rgba(255, 255, 255, 0.58);
+  box-shadow: var(--shadow-soft), inset 0 0 0 1px rgba(229, 229, 234, 0.46);
+}
+
+.empty-state-illustration {
+  width: 104px;
+  height: 94px;
+  border-radius: 28px;
+}
+
+.empty-state-illustration__object {
+  position: relative;
+  display: block;
+  width: 42px;
+  height: 42px;
+  border: 2px solid currentColor;
+  border-radius: 50% 50% 50% 8px;
+  color: #718ba0;
+  transform: rotate(-45deg);
+}
+
+.empty-state-illustration__object::after {
+  position: absolute;
+  top: 13px;
+  left: 13px;
+  width: 11px;
+  height: 11px;
+  border: 2px solid currentColor;
+  border-radius: 50%;
+  content: "";
+}
+
+.empty-state-illustration__object[data-scene="love"] {
+  width: 50px;
+  height: 34px;
+  border: 0;
+  border-radius: 0;
+  color: #9a7582;
+  transform: none;
+}
+
+.empty-state-illustration__object[data-scene="love"]::before,
+.empty-state-illustration__object[data-scene="love"]::after {
+  position: absolute;
+  top: 6px;
+  width: 24px;
+  height: 24px;
+  border: 2px solid currentColor;
+  border-radius: 12px;
+  content: "";
+}
+
+.empty-state-illustration__object[data-scene="love"]::before {
+  left: 2px;
+}
+
+.empty-state-illustration__object[data-scene="love"]::after {
+  right: 2px;
+}
+
+.empty-state-illustration__spark {
+  position: absolute;
+  top: 14px;
+  right: 17px;
+  color: rgba(111, 143, 119, 0.58);
+  font-size: 9px;
+}
+
+.bucket-empty-state h2 {
+  margin-top: 17px;
+}
+
+.bucket-empty-state p {
+  max-width: 230px;
+  margin: 7px auto 18px;
+  line-height: 1.6;
+}
+
+.chips-rule-hero {
+  min-height: 154px;
+  background:
+    radial-gradient(circle at 95% 4%, rgba(255, 255, 255, 0.88), transparent 35%),
+    linear-gradient(145deg, rgba(246, 250, 244, 0.98), rgba(224, 237, 220, 0.9));
+}
+
+.chips-card-list {
+  gap: 14px;
+}
+
+.person-chip-card {
+  position: relative;
+  gap: 17px;
+  padding: 18px;
+  border-radius: 30px;
+  background:
+    radial-gradient(circle at 100% 0%, rgba(220, 232, 246, 0.7), transparent 42%),
+    linear-gradient(145deg, rgba(255, 255, 255, 0.92), rgba(251, 251, 253, 0.7));
+  box-shadow: var(--shadow-card), inset 0 0 0 1px rgba(229, 229, 234, 0.44);
+}
+
+.person-chip-card[data-person="lili"] {
+  background:
+    radial-gradient(circle at 100% 0%, rgba(227, 221, 242, 0.78), transparent 42%),
+    linear-gradient(145deg, rgba(255, 255, 255, 0.92), rgba(251, 251, 253, 0.7));
+}
+
+.person-chip-card__header {
+  align-items: start;
+  gap: 12px;
+}
+
+.character-portrait-asset {
+  width: 82px;
+  min-width: 82px;
+  height: 112px;
+  gap: 3px;
+  border-radius: 27px;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.66);
+}
+
+.character-portrait-asset > strong {
+  font-size: 26px;
+}
+
+.character-portrait-asset > span,
+.character-portrait-asset > i {
+  max-width: 70px;
+  color: var(--color-text-secondary);
+  font-size: 6px;
+  font-style: normal;
+  line-height: 1.45;
+}
+
+.character-portrait-asset > i {
+  color: var(--color-text-tertiary);
+}
+
+.character-portrait-asset > small {
+  bottom: 6px;
+  font-size: 6px;
+}
+
+.person-chip-card__header > div {
+  padding-top: 5px;
+}
+
+.person-chip-card__header h2 {
+  margin-top: 3px;
+  font-size: 21px;
+}
+
+.chip-balance {
+  min-width: 52px;
+  padding-top: 7px;
+}
+
+.chip-balance strong {
+  font-size: 31px;
+}
+
+.person-chip-card__assets {
+  min-height: 112px;
+  padding: 15px;
+  border-radius: 22px;
+  background: rgba(244, 247, 241, 0.68);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.55);
+}
+
+.person-chip-card[data-person="lili"] .person-chip-card__assets {
+  background: rgba(246, 240, 247, 0.66);
+}
+
+.person-chip-card__assets-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.person-chip-card__assets-heading > p {
+  color: var(--color-text-secondary);
+  font-size: 9px;
+  font-weight: 750;
+}
+
+.person-chip-card__assets-heading > span {
+  color: var(--color-text-tertiary);
+  font-size: 7px;
+}
+
+.chip-assets,
+.chip-assets-empty {
+  margin-top: 13px;
+}
+
+.chip-actions {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 8px;
+}
+
+.chip-actions__main {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.chip-actions button {
+  min-height: 52px;
+  border: 1px solid rgba(111, 143, 119, 0.1);
+  border-radius: 18px;
+  background: rgba(232, 240, 229, 0.74);
+  box-shadow: inset 0 1px rgba(255, 255, 255, 0.72);
+}
+
+.person-chip-card[data-person="lili"] .chip-actions__main button {
+  border-color: rgba(154, 117, 130, 0.1);
+  background: rgba(246, 228, 232, 0.64);
+}
+
+.chip-actions .chip-reset-button {
+  min-height: 44px;
+  flex-direction: row;
+  gap: 7px;
+  border-color: rgba(110, 110, 115, 0.08);
+  border-radius: var(--radius-pill);
+  background: rgba(244, 245, 247, 0.66);
+  color: var(--color-text-tertiary);
+}
+
+.chip-actions .chip-reset-button strong {
+  font-size: 9px;
+}
+
+.chip-actions .chip-reset-button span {
+  font-size: 7px;
+}
+
+.chip-note-card {
+  border-radius: 26px;
+}
+
+.bottom-sheet,
+.confirm-dialog {
+  border-color: rgba(255, 255, 255, 0.86);
+  background: rgba(251, 251, 253, 0.96);
+  box-shadow: 0 26px 76px rgba(29, 34, 29, 0.18);
+}
+
+.sheet-close-button {
+  width: 44px;
+  height: 44px;
+  border-radius: 15px;
+}
+
+.editor-field input,
+.editor-field textarea {
+  border-color: rgba(229, 229, 234, 0.86);
+  background: rgba(244, 245, 247, 0.74);
+}
+
+.secondary-button,
+.danger-button {
+  min-height: 48px;
+  box-shadow: inset 0 1px rgba(255, 255, 255, 0.68);
+}
+
+.danger-button {
+  background: rgba(241, 236, 229, 0.82);
+  color: #896f65;
+}
+
+@media (max-width: 360px) {
+  .person-chip-card__header {
+    grid-template-columns: auto 1fr;
+  }
+
+  .chip-balance {
+    grid-column: 2;
+    align-items: flex-start;
+    padding-top: 0;
+  }
+
+  .character-portrait-asset {
+    grid-row: 1 / span 2;
+  }
 }

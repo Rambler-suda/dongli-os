@@ -1,5 +1,4 @@
-import { QuickEntryIcon } from "../illustrations/QuickEntryIcon";
-import { PixelIcon } from "../pixel/PixelIcon";
+import { EmptyIllustration } from "../illustrations/EmptyIllustration";
 
 type EmptyStateProps = {
   tone: "travel" | "love";
@@ -18,13 +17,7 @@ export function EmptyState({
 }: EmptyStateProps) {
   return (
     <section className="bucket-empty-state">
-      {tone === "love" ? (
-        <QuickEntryIcon entry="love" />
-      ) : (
-        <div className="bucket-empty-state__pixel-icon">
-          <PixelIcon name="pin" label="像素旅行图标" />
-        </div>
-      )}
+      <EmptyIllustration scene={tone} />
       <h2>{title}</h2>
       <p>{description}</p>
       <button className="secondary-button" type="button" onClick={onAction}>
