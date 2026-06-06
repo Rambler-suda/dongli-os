@@ -1,5 +1,5 @@
-import { AppShell } from "./app/AppShell";
+import { OnboardingGate } from "./app/OnboardingGate";
 
 export default function App() {
-  return <AppShell />;
+  return <OnboardingGate />;
 }

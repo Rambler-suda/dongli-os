@@ -35,6 +35,283 @@ p {
   margin: 0;
 }
 
+.onboarding-shell {
+  display: grid;
+  width: 100%;
+  max-width: var(--content-max-width);
+  min-height: 100dvh;
+  margin: 0 auto;
+  padding:
+    calc(var(--space-6) + env(safe-area-inset-top))
+    var(--page-padding-x)
+    calc(var(--space-6) + env(safe-area-inset-bottom));
+  background:
+    radial-gradient(circle at 100% 0%, rgba(211, 226, 207, 0.78), transparent 32%),
+    radial-gradient(circle at 0% 100%, rgba(245, 237, 215, 0.65), transparent 34%),
+    var(--color-bg);
+}
+
+.onboarding-content {
+  display: flex;
+  width: 100%;
+  max-width: 390px;
+  margin: auto;
+  flex-direction: column;
+  gap: var(--space-6);
+  animation: page-enter 220ms ease-out;
+}
+
+.onboarding-content--centered {
+  align-items: center;
+  text-align: center;
+}
+
+.onboarding-mark {
+  position: relative;
+  width: 86px;
+  height: 80px;
+  margin-bottom: var(--space-2);
+}
+
+.onboarding-mark span {
+  position: absolute;
+  left: 7px;
+  bottom: 4px;
+  width: 57px;
+  height: 66px;
+  border: 1px solid rgba(102, 128, 107, 0.1);
+  border-radius: 52% 48% 47% 53% / 58% 58% 42% 42%;
+  background: linear-gradient(145deg, #dce9d7, #bdd2b8);
+  box-shadow: 0 18px 32px rgba(75, 96, 77, 0.14);
+  transform: rotate(-10deg);
+}
+
+.onboarding-mark span:last-child {
+  top: 2px;
+  right: 4px;
+  bottom: auto;
+  left: auto;
+  width: 39px;
+  height: 23px;
+  border-radius: 90% 12% 90% 12%;
+  background: var(--color-pear-dark);
+  box-shadow: none;
+  transform: rotate(-24deg);
+}
+
+.onboarding-heading h1 {
+  margin-top: var(--space-2);
+  font-size: clamp(30px, 9vw, 40px);
+  line-height: 1.12;
+  letter-spacing: -0.05em;
+}
+
+.onboarding-heading > p:last-child {
+  margin-top: var(--space-3);
+  color: var(--color-text-secondary);
+  font-size: 14px;
+}
+
+.onboarding-heading--left {
+  padding: var(--space-5) var(--space-1) var(--space-1);
+}
+
+.onboarding-card,
+.profile-setup-card {
+  border: 1px solid rgba(255, 255, 255, 0.86);
+  border-radius: var(--radius-xl);
+  background: rgba(255, 255, 252, 0.8);
+  box-shadow: var(--shadow-card);
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+}
+
+.passcode-card {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  padding: var(--space-6);
+  text-align: left;
+}
+
+.field-label {
+  color: var(--color-text-secondary);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.passcode-input,
+.text-input {
+  width: 100%;
+  border: 1px solid var(--color-border);
+  outline: none;
+  background: rgba(247, 247, 243, 0.84);
+  color: var(--color-text);
+  transition:
+    border-color 160ms ease,
+    box-shadow 160ms ease,
+    background-color 160ms ease;
+}
+
+.passcode-input {
+  height: 70px;
+  margin-top: var(--space-3);
+  border-radius: var(--radius-md);
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: 0.4em;
+  text-align: center;
+  text-indent: 0.4em;
+}
+
+.passcode-input::placeholder {
+  color: var(--color-text-tertiary);
+  letter-spacing: 0.34em;
+}
+
+.passcode-input:focus,
+.text-input:focus {
+  border-color: rgba(102, 128, 107, 0.42);
+  background: rgba(255, 255, 252, 0.96);
+  box-shadow: 0 0 0 4px rgba(199, 216, 193, 0.32);
+}
+
+.passcode-input[aria-invalid="true"] {
+  border-color: rgba(157, 116, 109, 0.35);
+}
+
+.field-message {
+  min-height: 20px;
+  margin: var(--space-2) 0 var(--space-4);
+  color: #927068;
+  font-size: 12px;
+  opacity: 0;
+  transition: opacity 160ms ease;
+}
+
+.field-message[data-visible="true"] {
+  opacity: 1;
+}
+
+.primary-button {
+  width: 100%;
+  min-height: 52px;
+  cursor: pointer;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: var(--color-pear);
+  box-shadow: 0 10px 22px rgba(102, 128, 107, 0.14);
+  color: var(--color-text);
+  font-weight: 700;
+  transition:
+    background-color 160ms ease,
+    opacity 160ms ease,
+    transform 160ms ease;
+}
+
+.primary-button:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+.primary-button:disabled {
+  cursor: default;
+  opacity: 0.46;
+}
+
+.onboarding-footnote {
+  color: var(--color-text-tertiary);
+  font-size: 11px;
+}
+
+.profile-setup-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.profile-setup-card {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-5);
+}
+
+.profile-avatar {
+  position: relative;
+  display: grid;
+  width: 72px;
+  height: 72px;
+  flex: 0 0 auto;
+  place-items: center;
+  border: 1px solid rgba(102, 128, 107, 0.1);
+  border-radius: 26px;
+  background: linear-gradient(145deg, #e8f0e4, #c6d8c1);
+  color: var(--color-pear-dark);
+  font-size: 22px;
+  font-weight: 800;
+  box-shadow: var(--shadow-soft);
+}
+
+.profile-avatar[data-tone="cream"] {
+  border-color: rgba(140, 124, 85, 0.1);
+  background: linear-gradient(145deg, #faf5e6, #eee2c5);
+  color: #8c7c55;
+}
+
+.profile-avatar-leaf {
+  position: absolute;
+  top: -5px;
+  right: 10px;
+  width: 22px;
+  height: 12px;
+  border-radius: 90% 12% 90% 12%;
+  background: var(--color-pear-dark);
+  transform: rotate(-20deg);
+}
+
+.profile-field {
+  min-width: 0;
+  flex: 1;
+}
+
+.text-input {
+  height: 46px;
+  margin-top: var(--space-2);
+  padding: 0 var(--space-3);
+  border-radius: var(--radius-sm);
+  font-size: 15px;
+  font-weight: 650;
+}
+
+.profile-field > span {
+  display: block;
+  margin-top: var(--space-2);
+  color: var(--color-text-tertiary);
+  font-size: 10px;
+  line-height: 1.4;
+}
+
+.setup-note {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  color: var(--color-text-secondary);
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.setup-note span {
+  display: grid;
+  width: 28px;
+  height: 28px;
+  flex: 0 0 auto;
+  place-items: center;
+  border-radius: 10px;
+  background: var(--color-pear-light);
+  color: var(--color-pear-dark);
+}
+
 .app-shell {
   position: relative;
   width: 100%;
@@ -473,6 +750,7 @@ p {
 }
 
 @media (min-width: 700px) {
+  .onboarding-shell,
   .app-shell {
     min-height: calc(100dvh - 32px);
     margin: 16px auto;

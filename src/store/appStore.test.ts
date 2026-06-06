@@ -101,6 +101,26 @@ describe("appStore", () => {
     expect(refreshedState.travelItems[0].status).toBe("visited");
   });
 
+  it("updates profiles and completes onboarding on the home tab", () => {
+    const storage = createMemoryStorage();
+    const store = createAppStore(storage);
+
+    store.getState().setCurrentTab("chips");
+    store.getState().unlockApp();
+    store.getState().updateProfile("dongdong", { displayName: "冻冻" });
+    store.getState().updateProfile("lili", { displayName: "梨梨" });
+    store.getState().completeProfileSetup();
+
+    const refreshedState = createAppStore(storage).getState();
+    expect(refreshedState.appStatus).toMatchObject({
+      hasUnlocked: true,
+      hasCompletedProfileSetup: true,
+      currentTab: "home",
+    });
+    expect(refreshedState.profiles.dongdong.displayName).toBe("冻冻");
+    expect(refreshedState.profiles.lili.displayName).toBe("梨梨");
+  });
+
   it("restores all data to defaults", () => {
     const store = createAppStore(createMemoryStorage());
 

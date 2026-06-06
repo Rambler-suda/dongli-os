@@ -58,7 +58,23 @@ export function createAppStore(
 
         completeProfileSetup: () =>
           set((state) => ({
-            appStatus: { ...state.appStatus, hasCompletedProfileSetup: true },
+            appStatus: {
+              ...state.appStatus,
+              hasCompletedProfileSetup: true,
+              currentTab: "home",
+            },
+            updatedAt: now(),
+          })),
+
+        updateProfile: (profileId, patch) =>
+          set((state) => ({
+            profiles: {
+              ...state.profiles,
+              [profileId]: {
+                ...state.profiles[profileId],
+                ...patch,
+              },
+            },
             updatedAt: now(),
           })),
 

@@ -11,6 +11,10 @@ export type CoupleProfile = {
   realAvatarUrl?: string;
 };
 
+export type ProfilePatch = Partial<
+  Pick<CoupleProfile, "displayName" | "birthday" | "pixelAvatarKey" | "realAvatarUrl">
+>;
+
 export type DailyCache = {
   date: string;
   value: string;
@@ -71,6 +75,7 @@ export type AppActions = {
   setCurrentTab: (tab: TabId) => void;
   unlockApp: () => void;
   completeProfileSetup: () => void;
+  updateProfile: (profileId: PersonId, patch: ProfilePatch) => void;
   resetAppData: () => void;
   addTravelItem: (input: TravelItemInput) => void;
   updateTravelItem: (id: string, patch: TravelItemPatch) => void;
