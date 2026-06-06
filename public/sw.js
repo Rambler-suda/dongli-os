@@ -1,5 +1,10 @@
-const CACHE_NAME = "dongli-os-shell-v2";
-const APP_SHELL = ["/", "/manifest.webmanifest", "/icons/icon.svg"];
+const CACHE_NAME = "dongli-os-shell-v3";
+const BASE_PATH = new URL(self.registration.scope).pathname;
+const APP_SHELL = [
+  BASE_PATH,
+  `${BASE_PATH}manifest.webmanifest`,
+  `${BASE_PATH}icons/icon.svg`,
+];
 
 self.addEventListener("install", (event) => {
   event.waitUntil(caches.open(CACHE_NAME).then((cache) => cache.addAll(APP_SHELL)));
@@ -29,6 +34,8 @@ self.addEventListener("fetch", (event) => {
         void caches.open(CACHE_NAME).then((cache) => cache.put(event.request, copy));
         return response;
       })
-      .catch(() => caches.match(event.request).then((response) => response ?? caches.match("/"))),
+      .catch(() =>
+        caches.match(event.request).then((response) => response ?? caches.match(BASE_PATH)),
+      ),
   );
 });
