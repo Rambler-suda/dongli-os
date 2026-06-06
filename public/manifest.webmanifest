@@ -1,0 +1,20 @@
+{
+  "name": "冻梨 OS",
+  "short_name": "冻梨 OS",
+  "description": "只属于两个人的轻量生活小系统",
+  "lang": "zh-CN",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f7f5f0",
+  "theme_color": "#f7f5f0",
+  "icons": [
+    {
+      "src": "/icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
