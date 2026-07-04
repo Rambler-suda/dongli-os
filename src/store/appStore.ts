@@ -3,6 +3,7 @@ import { createStore } from "zustand/vanilla";
 import { persist, type PersistStorage } from "zustand/middleware";
 import { APP_STATE_VERSION, createDefaultState } from "./defaultState";
 import { mergePersistedState, migratePersistedState } from "./migrations";
+import { startSupabaseSync } from "./supabaseSync";
 import { safeLocalStorage, STORAGE_KEY } from "./storage";
 import type {
   AppDataState,
@@ -62,19 +63,22 @@ export function createAppStore(
         setCurrentTab: (tab) =>
           set((state) => ({
             appStatus: { ...state.appStatus, currentTab: tab },
-            updatedAt: now(),
           })),
 
         unlockApp: () =>
           set((state) => ({
             appStatus: { ...state.appStatus, hasUnlocked: true },
-            updatedAt: now(),
           })),
 
         logoutApp: () =>
           set((state) => ({
-            appStatus: { ...state.appStatus, hasUnlocked: false, currentTab: "home" },
-            updatedAt: now(),
+            appStatus: {
+              ...state.appStatus,
+              hasUnlocked: false,
+              hasCompletedProfileSetup: false,
+              selectedPersonId: null,
+              currentTab: "home",
+            },
           })),
 
         completeRoleSelection: (personId) =>
@@ -86,7 +90,6 @@ export function createAppStore(
               currentTab: "home",
             },
             profiles: withSelectedPersonRoles(state.profiles, personId),
-            updatedAt: now(),
           })),
 
         completeProfileSetup: () =>
@@ -101,7 +104,6 @@ export function createAppStore(
                 currentTab: "home",
               },
               profiles: withSelectedPersonRoles(state.profiles, selectedPersonId),
-              updatedAt: now(),
             };
           }),
 
@@ -335,6 +337,7 @@ export function createAppStore(
 }
 
 export const appStore = createAppStore();
+startSupabaseSync(appStore);
 
 export function useAppStore<T>(selector: (state: AppState) => T): T {
   return useStore(appStore, selector);
