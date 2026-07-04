@@ -3805,3 +3805,316 @@ p {
   bottom: 4px;
   width: 7px;
 }
+
+/* Relationship card image-integrated layout. */
+.relationship-card {
+  min-height: 226px;
+  overflow: hidden;
+  border-radius: 30px;
+  background:
+    radial-gradient(circle at 83% 18%, rgba(255, 255, 255, 0.78), transparent 33%),
+    radial-gradient(circle at 5% 95%, rgba(214, 230, 210, 0.58), transparent 36%),
+    linear-gradient(145deg, rgba(249, 252, 246, 0.98), rgba(230, 241, 226, 0.96));
+}
+
+.relationship-card::before {
+  top: -118px;
+  right: -84px;
+  width: 270px;
+  height: 270px;
+  opacity: 0.62;
+}
+
+.relationship-card__summary {
+  position: relative;
+  display: block;
+  min-height: 226px;
+  padding: 24px 18px 20px;
+  overflow: hidden;
+}
+
+.relationship-card__content {
+  position: relative;
+  z-index: 2;
+  width: min(58%, 230px);
+  min-width: 0;
+  padding: 0;
+}
+
+.relationship-card__title {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.relationship-card__title p {
+  color: var(--color-text-secondary);
+  font-size: 14px;
+  font-weight: 750;
+  line-height: 1.35;
+}
+
+.relationship-card__title-icon {
+  display: inline-grid;
+  width: 20px;
+  height: 20px;
+  place-items: center;
+  border-radius: 8px;
+  background: rgba(218, 232, 213, 0.72);
+  color: #7f9f80;
+  font-size: 10px;
+  box-shadow: 0 5px 14px rgba(102, 128, 107, 0.1);
+}
+
+.relationship-card__content > strong {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  margin-top: 4px;
+  color: #17191a;
+  font-size: clamp(58px, 16vw, 74px);
+  font-weight: 850;
+  line-height: 0.96;
+  letter-spacing: -0.035em;
+  white-space: nowrap;
+}
+
+.relationship-card__content > strong span {
+  color: var(--color-pear-dark);
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: 0;
+}
+
+.relationship-card__meta {
+  width: min(100%, 190px);
+  max-width: none;
+  margin: 10px 0 0;
+  gap: 4px;
+  color: var(--color-text-secondary);
+  font-size: 10px;
+  line-height: 1.45;
+}
+
+.relationship-card__meta span {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.relationship-card__meta .pixel-icon[data-icon="heart"] {
+  color: #9a7582;
+}
+
+.relationship-card__meta strong {
+  color: var(--color-pear-dark);
+  font-size: 10px;
+  font-weight: 800;
+  line-height: 1.45;
+}
+
+.relationship-card__countdown {
+  width: min(164px, 100%);
+  margin-top: 12px;
+  padding: 11px 13px;
+  border: 1px solid rgba(255, 255, 255, 0.72);
+  border-radius: 20px;
+  background: rgba(255, 255, 252, 0.78);
+  box-shadow: 0 14px 30px rgba(74, 99, 78, 0.08), inset 0 1px rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.relationship-card__countdown > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--color-text-tertiary);
+  font-size: 9px;
+  font-weight: 750;
+}
+
+.relationship-card__countdown .pixel-icon[data-icon="heart"] {
+  color: #d28a94;
+}
+
+.relationship-card__countdown > strong {
+  display: block;
+  margin-top: 4px;
+  color: #17191a;
+  font-size: 25px;
+  font-weight: 850;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+
+.relationship-card__scene {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  display: block;
+  min-width: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.relationship-card__scene .couple-scene-asset {
+  position: absolute;
+  right: -16px;
+  bottom: -8px;
+  display: block;
+  width: 66%;
+  height: 100%;
+  min-height: 0;
+  margin: 0;
+  overflow: visible;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.relationship-card__scene .couple-scene-asset[data-asset-status="ready"] {
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.relationship-card__scene .couple-scene-asset[data-asset-status="ready"] > img {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  object-fit: contain;
+  object-position: right bottom;
+  filter: drop-shadow(0 18px 26px rgba(86, 100, 79, 0.12));
+  transform: scale(1.16);
+  transform-origin: right bottom;
+}
+
+@media (max-width: 360px) {
+  .relationship-card {
+    min-height: 214px;
+  }
+
+  .relationship-card__summary {
+    min-height: 214px;
+    padding: 20px 15px 17px;
+  }
+
+  .relationship-card__content {
+    width: min(59%, 206px);
+  }
+
+  .relationship-card__content > strong {
+    font-size: clamp(52px, 16vw, 64px);
+  }
+
+  .relationship-card__countdown {
+    width: min(150px, 100%);
+    padding: 10px 12px;
+  }
+
+  .relationship-card__scene .couple-scene-asset {
+    right: -18px;
+    width: 68%;
+  }
+}
+/* Relationship card requested cleanup: remove meta copy and enlarge right illustration. */
+.relationship-card__content {
+  width: min(44%, 176px);
+}
+
+.relationship-card__countdown {
+  margin-top: 18px;
+}
+
+.relationship-card__scene {
+  inset: 0 0 0 45%;
+}
+
+.relationship-card__scene .couple-scene-asset {
+  right: -54px;
+  bottom: -18px;
+  width: 120%;
+  height: 112%;
+}
+
+.relationship-card__scene .couple-scene-asset[data-asset-status="ready"] > img {
+  transform: scale(1.5);
+}
+
+@media (max-width: 360px) {
+  .relationship-card__content {
+    width: min(46%, 154px);
+  }
+
+  .relationship-card__scene {
+    inset: 0 0 0 47%;
+  }
+
+  .relationship-card__scene .couple-scene-asset {
+    right: -58px;
+    bottom: -18px;
+    width: 124%;
+  }
+}
+/* Relationship card image reveal: show more of the enlarged scene while fading near text. */
+.relationship-card__scene {
+  inset: 0 0 0 32%;
+  -webkit-mask-image: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(0, 0, 0, 0.08) 12%,
+    rgba(0, 0, 0, 0.48) 27%,
+    #000 48%
+  );
+  mask-image: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(0, 0, 0, 0.08) 12%,
+    rgba(0, 0, 0, 0.48) 27%,
+    #000 48%
+  );
+}
+
+.relationship-card__scene .couple-scene-asset {
+  right: -8px;
+  bottom: -20px;
+  width: 112%;
+  height: 114%;
+}
+
+.relationship-card__scene .couple-scene-asset[data-asset-status="ready"] > img {
+  object-position: center bottom;
+  transform: scale(1.5) translateX(-4%);
+}
+
+@media (max-width: 360px) {
+  .relationship-card__scene {
+    inset: 0 0 0 35%;
+    -webkit-mask-image: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(0, 0, 0, 0.12) 14%,
+      rgba(0, 0, 0, 0.55) 31%,
+      #000 52%
+    );
+    mask-image: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(0, 0, 0, 0.12) 14%,
+      rgba(0, 0, 0, 0.55) 31%,
+      #000 52%
+    );
+  }
+
+  .relationship-card__scene .couple-scene-asset {
+    right: -10px;
+    bottom: -18px;
+    width: 116%;
+  }
+
+  .relationship-card__scene .couple-scene-asset[data-asset-status="ready"] > img {
+    transform: scale(1.48) translateX(-4%);
+  }
+}

@@ -58,7 +58,7 @@ describe("OnboardingGate", () => {
     expect(await screen.findByRole("heading", { name: "进入冻梨 OS" })).toBeTruthy();
   });
 
-  it("returns to the passcode page after logout confirmation", async () => {
+  it("requires role selection again after logout and passcode login", async () => {
     const user = userEvent.setup();
     appStore.getState().unlockApp();
     appStore.getState().completeRoleSelection("dongdong");
@@ -67,9 +67,19 @@ describe("OnboardingGate", () => {
     await user.click(screen.getByRole("button", { name: "\u9000\u51fa\u767b\u5f55" }));
     await user.click(screen.getByRole("button", { name: "\u9000\u51fa" }));
 
-    await waitFor(() => {
-      expect(document.getElementById("passcode")).toBeTruthy();
+    const passcodeInput = await waitFor(() => {
+      const element = document.getElementById("passcode");
+      expect(element).toBeTruthy();
+      return element as HTMLInputElement;
     });
     expect(appStore.getState().appStatus.hasUnlocked).toBe(false);
+    expect(appStore.getState().appStatus.selectedPersonId).toBeNull();
+
+    await user.type(passcodeInput, "0607");
+    await user.keyboard("{Enter}");
+
+    expect(await screen.findByRole("heading", { name: "\u9009\u62e9\u4f60\u7684\u89d2\u8272" })).toBeTruthy();
+    expect(appStore.getState().appStatus.hasUnlocked).toBe(true);
+    expect(appStore.getState().appStatus.selectedPersonId).toBeNull();
   });
 });

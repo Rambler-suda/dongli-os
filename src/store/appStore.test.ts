@@ -180,7 +180,7 @@ describe("appStore", () => {
     expect(state.memoItems).toHaveLength(0);
   });
 
-  it("logs out without resetting app data", () => {
+  it("logs out and requires role selection without resetting app data", () => {
     const store = createAppStore(createMemoryStorage());
 
     store.getState().unlockApp();
@@ -191,8 +191,8 @@ describe("appStore", () => {
 
     const state = store.getState();
     expect(state.appStatus.hasUnlocked).toBe(false);
-    expect(state.appStatus.hasCompletedProfileSetup).toBe(true);
-    expect(state.appStatus.selectedPersonId).toBe("lili");
+    expect(state.appStatus.hasCompletedProfileSetup).toBe(false);
+    expect(state.appStatus.selectedPersonId).toBeNull();
     expect(state.appStatus.currentTab).toBe("home");
     expect(state.chips.liliHands).toBe(5);
   });

@@ -55,7 +55,8 @@ describe("HomePage", () => {
     await user.click(screen.getByRole("button", { name: "\u9000\u51fa" }));
 
     expect(appStore.getState().appStatus.hasUnlocked).toBe(false);
-    expect(appStore.getState().appStatus.hasCompletedProfileSetup).toBe(true);
+    expect(appStore.getState().appStatus.hasCompletedProfileSetup).toBe(false);
+    expect(appStore.getState().appStatus.selectedPersonId).toBeNull();
   });
 
   it("opens memo from the home entry and saves a text memo", async () => {

@@ -18,6 +18,14 @@ describe("birthday domain", () => {
     const birthday = getBirthdayReminder(profiles, createLocalDate(2026, 3, 18));
 
     expect(preparing).toMatchObject({ personId: "lili", daysUntil: 17 });
+    expect(preparing.birthdays).toEqual([
+      {
+        personId: "lili",
+        displayName: "婷婷",
+        monthDay: "03.18",
+        daysUntil: 17,
+      },
+    ]);
     expect(preparing.message).toContain("小惊喜");
     expect(upcoming.title).toContain("生日快到啦");
     expect(birthday.title).toBe("今天是婷婷生日");
@@ -31,6 +39,14 @@ describe("birthday domain", () => {
       displayName: "婷婷",
       daysUntil: 46,
     });
+    expect(reminder.birthdays).toEqual([
+      {
+        personId: "lili",
+        displayName: "婷婷",
+        monthDay: "03.18",
+        daysUntil: 46,
+      },
+    ]);
     expect(reminder.title).toBe("距离婷婷生日还有 46 天");
   });
 
@@ -47,5 +63,13 @@ describe("birthday domain", () => {
       displayName: "琦琦",
       daysUntil: 3,
     });
+    expect(reminder.birthdays).toEqual([
+      {
+        personId: "dongdong",
+        displayName: "琦琦",
+        monthDay: "02.03",
+        daysUntil: 3,
+      },
+    ]);
   });
 });

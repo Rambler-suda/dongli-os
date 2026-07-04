@@ -104,6 +104,13 @@ export function getBirthdayReminder(
     nextBirthday: partner.nextBirthday,
     title: copy.title,
     message: copy.message,
-    birthdays: birthdays.map(({ nextBirthday: _nextBirthday, ...birthday }) => birthday),
+    birthdays: [
+      {
+        personId: partner.personId,
+        displayName: partner.displayName,
+        monthDay: partner.monthDay,
+        daysUntil: partner.daysUntil,
+      },
+    ],
   };
 }

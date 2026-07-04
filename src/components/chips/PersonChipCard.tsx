@@ -40,7 +40,6 @@ export function PersonChipCard({
         </div>
         <span className="chip-balance">
           <strong>{hands}</strong>
-          <small>小手</small>
         </span>
       </header>
 
