@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "build:pages": "tsc -b && vite build --base=/Bosch-code/",
+    "build:pages": "tsc -b && vite build --base=/dongli-os/",
     "preview": "vite preview",
     "test": "vitest run",
     "typecheck": "tsc -b"
