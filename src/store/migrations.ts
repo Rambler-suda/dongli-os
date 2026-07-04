@@ -1,7 +1,14 @@
 import { APP_STATE_VERSION, createDefaultState } from "./defaultState";
-import type { AppDataState, AppState, PersistedState, TabId } from "./types";
+import type {
+  AppDataState,
+  AppState,
+  PersistedState,
+  PersonId,
+  TabId,
+} from "./types";
 
 const validTabs: TabId[] = ["home", "travel", "love", "chips"];
+const validPersonIds: PersonId[] = ["dongdong", "lili"];
 
 function isObject(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null;
@@ -11,6 +18,32 @@ function asNonNegativeNumber(value: unknown, fallback: number): number {
   return typeof value === "number" && Number.isFinite(value) && value >= 0
     ? value
     : fallback;
+}
+
+function asPersonId(value: unknown): PersonId | null {
+  return validPersonIds.includes(value as PersonId) ? (value as PersonId) : null;
+}
+
+function inferSelectedPersonId(
+  profiles: Record<string, unknown>,
+  hasCompletedProfileSetup: boolean,
+): PersonId | null {
+  if (!hasCompletedProfileSetup) {
+    return null;
+  }
+
+  const dongdong = isObject(profiles.dongdong) ? profiles.dongdong : {};
+  const lili = isObject(profiles.lili) ? profiles.lili : {};
+
+  if (dongdong.role === "me") {
+    return "dongdong";
+  }
+
+  if (lili.role === "me") {
+    return "lili";
+  }
+
+  return null;
 }
 
 export function normalizePersistedState(value: unknown): PersistedState {
@@ -27,6 +60,14 @@ export function normalizePersistedState(value: unknown): PersistedState {
   const currentTab = validTabs.includes(appStatus.currentTab as TabId)
     ? (appStatus.currentTab as TabId)
     : defaults.appStatus.currentTab;
+  const hasCompletedProfileSetup =
+    typeof appStatus.hasCompletedProfileSetup === "boolean"
+      ? appStatus.hasCompletedProfileSetup
+      : defaults.appStatus.hasCompletedProfileSetup;
+  const selectedPersonId =
+    asPersonId(appStatus.selectedPersonId) ??
+    inferSelectedPersonId(profiles, hasCompletedProfileSetup) ??
+    defaults.appStatus.selectedPersonId;
 
   return {
     version: APP_STATE_VERSION,
@@ -38,10 +79,8 @@ export function normalizePersistedState(value: unknown): PersistedState {
         typeof appStatus.hasUnlocked === "boolean"
           ? appStatus.hasUnlocked
           : defaults.appStatus.hasUnlocked,
-      hasCompletedProfileSetup:
-        typeof appStatus.hasCompletedProfileSetup === "boolean"
-          ? appStatus.hasCompletedProfileSetup
-          : defaults.appStatus.hasCompletedProfileSetup,
+      hasCompletedProfileSetup,
+      selectedPersonId,
       currentTab,
     },
     profiles: {
@@ -49,13 +88,13 @@ export function normalizePersistedState(value: unknown): PersistedState {
         ...defaults.profiles.dongdong,
         ...(isObject(profiles.dongdong) ? profiles.dongdong : {}),
         id: "dongdong",
-        role: "me",
+        role: selectedPersonId === "lili" ? "partner" : "me",
       },
       lili: {
         ...defaults.profiles.lili,
         ...(isObject(profiles.lili) ? profiles.lili : {}),
         id: "lili",
-        role: "partner",
+        role: selectedPersonId === "lili" ? "me" : "partner",
       },
     },
     home: {
@@ -68,6 +107,9 @@ export function normalizePersistedState(value: unknown): PersistedState {
     loveItems: Array.isArray(value.loveItems)
       ? (value.loveItems as AppDataState["loveItems"])
       : defaults.loveItems,
+    memoItems: Array.isArray(value.memoItems)
+      ? (value.memoItems as AppDataState["memoItems"])
+      : defaults.memoItems,
     chips: {
       dongdongHands: asNonNegativeNumber(
         chips.dongdongHands,

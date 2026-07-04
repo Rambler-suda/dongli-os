@@ -8,12 +8,13 @@ export function OnboardingGate() {
   const hasCompletedProfileSetup = useAppStore(
     (state) => state.appStatus.hasCompletedProfileSetup,
   );
+  const selectedPersonId = useAppStore((state) => state.appStatus.selectedPersonId);
 
   if (!hasUnlocked) {
     return <PasscodePage />;
   }
 
-  if (!hasCompletedProfileSetup) {
+  if (!hasCompletedProfileSetup || !selectedPersonId) {
     return <ProfileSetupPage />;
   }
 

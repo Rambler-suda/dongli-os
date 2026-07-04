@@ -21,10 +21,12 @@ describe("appStore", () => {
   it("starts with the PRD default data", () => {
     const state = createAppStore(createMemoryStorage()).getState();
 
-    expect(state.profiles.dongdong.displayName).toBe("大冻梨");
+    expect(state.profiles.dongdong.displayName).toBe("琦琦");
     expect(state.profiles.lili.displayName).toBe("婷婷");
+    expect(state.appStatus.selectedPersonId).toBeNull();
     expect(state.travelItems).toHaveLength(8);
     expect(state.loveItems).toHaveLength(11);
+    expect(state.memoItems).toHaveLength(0);
     expect(state.travelItems[0].title).toBe("苏州乐园");
     expect(state.loveItems[10].title).toBe("终极目标（猜猜是什么呢）");
   });
@@ -66,6 +68,31 @@ describe("appStore", () => {
     expect(store.getState().loveItems.some((item) => item.id === loveId)).toBe(false);
   });
 
+  it("supports memo operations and persists them", () => {
+    const storage = createMemoryStorage();
+    const store = createAppStore(storage);
+
+    store.getState().addMemoItem({
+      text: "记得买牛奶",
+      imageDataUrl: "data:image/png;base64,abc",
+      imageName: "milk.png",
+    });
+
+    const memoId = store.getState().memoItems[0].id;
+    store.getState().updateMemoItem(memoId, { text: "记得买牛奶和面包" });
+
+    const refreshedState = createAppStore(storage).getState();
+    expect(refreshedState.memoItems[0]).toMatchObject({
+      id: memoId,
+      text: "记得买牛奶和面包",
+      imageDataUrl: "data:image/png;base64,abc",
+      imageName: "milk.png",
+    });
+
+    store.getState().deleteMemoItem(memoId);
+    expect(store.getState().memoItems).toHaveLength(0);
+  });
+
   it("supports chip operations and prevents invalid or negative hands", () => {
     const store = createAppStore(createMemoryStorage());
 
@@ -101,24 +128,25 @@ describe("appStore", () => {
     expect(refreshedState.travelItems[0].status).toBe("visited");
   });
 
-  it("updates profiles and completes onboarding on the home tab", () => {
+  it("selects a role and completes onboarding on the home tab", () => {
     const storage = createMemoryStorage();
     const store = createAppStore(storage);
 
     store.getState().setCurrentTab("chips");
     store.getState().unlockApp();
-    store.getState().updateProfile("dongdong", { displayName: "冻冻" });
-    store.getState().updateProfile("lili", { displayName: "梨梨" });
-    store.getState().completeProfileSetup();
+    store.getState().completeRoleSelection("lili");
 
     const refreshedState = createAppStore(storage).getState();
     expect(refreshedState.appStatus).toMatchObject({
       hasUnlocked: true,
       hasCompletedProfileSetup: true,
+      selectedPersonId: "lili",
       currentTab: "home",
     });
-    expect(refreshedState.profiles.dongdong.displayName).toBe("冻冻");
-    expect(refreshedState.profiles.lili.displayName).toBe("梨梨");
+    expect(refreshedState.profiles.dongdong.role).toBe("partner");
+    expect(refreshedState.profiles.lili.role).toBe("me");
+    expect(refreshedState.profiles.dongdong.displayName).toBe("琦琦");
+    expect(refreshedState.profiles.lili.displayName).toBe("婷婷");
   });
 
   it("persists home daily caches", () => {
@@ -146,7 +174,26 @@ describe("appStore", () => {
 
     const state = store.getState();
     expect(state.appStatus.hasUnlocked).toBe(false);
+    expect(state.appStatus.selectedPersonId).toBeNull();
     expect(state.chips.dongdongHands).toBe(0);
     expect(state.travelItems).toHaveLength(8);
+    expect(state.memoItems).toHaveLength(0);
+  });
+
+  it("logs out without resetting app data", () => {
+    const store = createAppStore(createMemoryStorage());
+
+    store.getState().unlockApp();
+    store.getState().completeRoleSelection("lili");
+    store.getState().setCurrentTab("chips");
+    store.getState().addHands("lili", 5);
+    store.getState().logoutApp();
+
+    const state = store.getState();
+    expect(state.appStatus.hasUnlocked).toBe(false);
+    expect(state.appStatus.hasCompletedProfileSetup).toBe(true);
+    expect(state.appStatus.selectedPersonId).toBe("lili");
+    expect(state.appStatus.currentTab).toBe("home");
+    expect(state.chips.liliHands).toBe(5);
   });
 });

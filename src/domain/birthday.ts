@@ -91,16 +91,17 @@ export function getBirthdayReminder(
     };
   });
 
-  const nearest = birthdays.reduce((current, candidate) =>
-    candidate.daysUntil < current.daysUntil ? candidate : current,
-  );
-  const copy = getBirthdayCopy(nearest.personId, nearest.displayName, nearest.daysUntil);
+  const partner =
+    birthdays.find(
+      ({ personId }) => profiles[personId].role === "partner",
+    ) ?? birthdays[1];
+  const copy = getBirthdayCopy(partner.personId, partner.displayName, partner.daysUntil);
 
   return {
-    personId: nearest.personId,
-    displayName: nearest.displayName,
-    daysUntil: nearest.daysUntil,
-    nextBirthday: nearest.nextBirthday,
+    personId: partner.personId,
+    displayName: partner.displayName,
+    daysUntil: partner.daysUntil,
+    nextBirthday: partner.nextBirthday,
     title: copy.title,
     message: copy.message,
     birthdays: birthdays.map(({ nextBirthday: _nextBirthday, ...birthday }) => birthday),

@@ -2,14 +2,13 @@ import { useStore } from "zustand";
 import { createStore } from "zustand/vanilla";
 import { persist, type PersistStorage } from "zustand/middleware";
 import { APP_STATE_VERSION, createDefaultState } from "./defaultState";
-import {
-  mergePersistedState,
-  migratePersistedState,
-} from "./migrations";
+import { mergePersistedState, migratePersistedState } from "./migrations";
 import { safeLocalStorage, STORAGE_KEY } from "./storage";
 import type {
+  AppDataState,
   AppState,
   LoveItemInput,
+  MemoItemInput,
   PersistedState,
   PersonId,
   TravelItemInput,
@@ -36,6 +35,22 @@ function normalizeHandAmount(amount: number): number {
   return Number.isFinite(amount) ? Math.trunc(amount) : 0;
 }
 
+function withSelectedPersonRoles(
+  profiles: AppDataState["profiles"],
+  selectedPersonId: PersonId,
+): AppDataState["profiles"] {
+  return {
+    dongdong: {
+      ...profiles.dongdong,
+      role: selectedPersonId === "dongdong" ? "me" : "partner",
+    },
+    lili: {
+      ...profiles.lili,
+      role: selectedPersonId === "lili" ? "me" : "partner",
+    },
+  };
+}
+
 export function createAppStore(
   storage: PersistStorage<PersistedState> = safeLocalStorage,
 ) {
@@ -56,15 +71,39 @@ export function createAppStore(
             updatedAt: now(),
           })),
 
-        completeProfileSetup: () =>
+        logoutApp: () =>
+          set((state) => ({
+            appStatus: { ...state.appStatus, hasUnlocked: false, currentTab: "home" },
+            updatedAt: now(),
+          })),
+
+        completeRoleSelection: (personId) =>
           set((state) => ({
             appStatus: {
               ...state.appStatus,
               hasCompletedProfileSetup: true,
+              selectedPersonId: personId,
               currentTab: "home",
             },
+            profiles: withSelectedPersonRoles(state.profiles, personId),
             updatedAt: now(),
           })),
+
+        completeProfileSetup: () =>
+          set((state) => {
+            const selectedPersonId = state.appStatus.selectedPersonId ?? "dongdong";
+
+            return {
+              appStatus: {
+                ...state.appStatus,
+                hasCompletedProfileSetup: true,
+                selectedPersonId,
+                currentTab: "home",
+              },
+              profiles: withSelectedPersonRoles(state.profiles, selectedPersonId),
+              updatedAt: now(),
+            };
+          }),
 
         updateProfile: (profileId, patch) =>
           set((state) => ({
@@ -203,6 +242,40 @@ export function createAppStore(
             };
           }),
 
+        addMemoItem: (input: MemoItemInput) =>
+          set((state) => {
+            const timestamp = now();
+            return {
+              memoItems: [
+                {
+                  ...input,
+                  id: createId("memo"),
+                  createdAt: timestamp,
+                  updatedAt: timestamp,
+                },
+                ...state.memoItems,
+              ],
+              updatedAt: timestamp,
+            };
+          }),
+
+        updateMemoItem: (id, patch) =>
+          set((state) => {
+            const timestamp = now();
+            return {
+              memoItems: state.memoItems.map((item) =>
+                item.id === id ? { ...item, ...patch, updatedAt: timestamp } : item,
+              ),
+              updatedAt: timestamp,
+            };
+          }),
+
+        deleteMemoItem: (id) =>
+          set((state) => ({
+            memoItems: state.memoItems.filter((item) => item.id !== id),
+            updatedAt: now(),
+          })),
+
         addHands: (personId, amount) =>
           set((state) => {
             const key = handsKey(personId);
@@ -251,6 +324,7 @@ export function createAppStore(
           home: state.home,
           travelItems: state.travelItems,
           loveItems: state.loveItems,
+          memoItems: state.memoItems,
           chips: state.chips,
         }),
         migrate: migratePersistedState,

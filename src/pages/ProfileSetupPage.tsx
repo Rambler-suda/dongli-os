@@ -1,104 +1,89 @@
-import { useState, type FormEvent } from "react";
+import qiqiRolePortrait from "../assets/illustrations/role-qiqi.png";
+import tingtingRolePortrait from "../assets/illustrations/role-tingting.png";
 import { useAppStore } from "../store/appStore";
 import type { PersonId } from "../store/types";
 
-type ProfileFieldProps = {
+type RoleOption = {
   id: PersonId;
-  label: string;
-  avatarLabel: string;
+  name: string;
+  accountLabel: string;
+  description: string;
+  avatarSrc: string;
   avatarTone: "pear" | "cream";
-  value: string;
-  onChange: (value: string) => void;
 };
 
-function ProfileField({
-  id,
-  label,
-  avatarLabel,
-  avatarTone,
-  value,
-  onChange,
-}: ProfileFieldProps) {
+const roleOptions: RoleOption[] = [
+  {
+    id: "dongdong",
+    name: "琦琦",
+    accountLabel: "琦琦账户",
+    description: "选择后，这台设备会记住你是琦琦。",
+    avatarSrc: qiqiRolePortrait,
+    avatarTone: "pear",
+  },
+  {
+    id: "lili",
+    name: "婷婷",
+    accountLabel: "婷婷账户",
+    description: "选择后，这台设备会记住你是婷婷。",
+    avatarSrc: tingtingRolePortrait,
+    avatarTone: "cream",
+  },
+];
+
+type RoleCardProps = {
+  option: RoleOption;
+  onSelect: (id: PersonId) => void;
+};
+
+function RoleCard({
+  option: { id, name, accountLabel, description, avatarSrc, avatarTone },
+  onSelect,
+}: RoleCardProps) {
   return (
-    <div className="profile-setup-card">
-      <div className="profile-avatar" data-tone={avatarTone} aria-hidden="true">
-        <span className="profile-avatar-leaf" />
-        {avatarLabel}
+    <button
+      className="profile-setup-card role-select-card"
+      type="button"
+      onClick={() => onSelect(id)}
+    >
+      <div
+        className="profile-avatar role-select-card__avatar"
+        data-tone={avatarTone}
+        aria-hidden="true"
+      >
+        <img className="role-select-card__image" src={avatarSrc} alt="" draggable="false" />
       </div>
-      <div className="profile-field">
-        <label className="field-label" htmlFor={`${id}-name`}>
-          {label}
-        </label>
-        <input
-          id={`${id}-name`}
-          className="text-input"
-          type="text"
-          maxLength={20}
-          autoComplete="off"
-          value={value}
-          onChange={(event) => onChange(event.target.value)}
-        />
-        <span>默认像素 IP · 后续可以重新设置</span>
+      <div className="profile-field role-select-card__body">
+        <span className="role-select-card__eyebrow">{accountLabel}</span>
+        <h2>{name}</h2>
+        <p>{description}</p>
       </div>
-    </div>
+    </button>
   );
 }
 
 export function ProfileSetupPage() {
-  const profiles = useAppStore((state) => state.profiles);
-  const updateProfile = useAppStore((state) => state.updateProfile);
-  const completeProfileSetup = useAppStore((state) => state.completeProfileSetup);
-  const [dongdongName, setDongdongName] = useState(profiles.dongdong.displayName);
-  const [liliName, setLiliName] = useState(profiles.lili.displayName);
-
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-
-    updateProfile("dongdong", {
-      displayName: dongdongName.trim() || profiles.dongdong.displayName,
-    });
-    updateProfile("lili", {
-      displayName: liliName.trim() || profiles.lili.displayName,
-    });
-    completeProfileSetup();
-  }
+  const completeRoleSelection = useAppStore((state) => state.completeRoleSelection);
 
   return (
     <main className="onboarding-shell">
       <section className="onboarding-content">
         <header className="onboarding-heading onboarding-heading--left">
           <p className="eyebrow">Welcome home</p>
-          <h1>设置我们的形象</h1>
-          <p>先让冻梨 OS 认识你们</p>
+          <h1>选择你的角色</h1>
+          <p>先告诉冻梨 OS 这台设备属于谁</p>
         </header>
 
-        <form className="profile-setup-form" onSubmit={handleSubmit}>
-          <ProfileField
-            id="dongdong"
-            label="冻冻昵称"
-            avatarLabel="冻"
-            avatarTone="pear"
-            value={dongdongName}
-            onChange={setDongdongName}
-          />
-          <ProfileField
-            id="lili"
-            label="梨梨昵称"
-            avatarLabel="梨"
-            avatarTone="cream"
-            value={liliName}
-            onChange={setLiliName}
-          />
+        <div className="profile-setup-form">
+          {roleOptions.map((option) => (
+            <RoleCard key={option.id} option={option} onSelect={completeRoleSelection} />
+          ))}
 
           <div className="setup-note">
             <span aria-hidden="true">✦</span>
-            <p>先使用默认像素形象，头像上传会在后续加入。</p>
+            <p>琦琦和婷婷看到的是同一份冻梨 OS 数据，一方修改后另一方也能看到。</p>
           </div>
-
-          <button className="primary-button" type="submit">
-            完成，进入首页
-          </button>
-        </form>
+        </div>
       </section>
     </main>
   );

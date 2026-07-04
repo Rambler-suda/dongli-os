@@ -1,3 +1,5 @@
+import dongdongPortrait from "../../assets/illustrations/dongdong-portrait.png";
+import liliPortrait from "../../assets/illustrations/lili-portrait.png";
 import type { PersonId } from "../../store/types";
 import { IllustrationAsset } from "./IllustrationAsset";
 
@@ -13,14 +15,14 @@ export function CharacterPortrait({
   displayName,
 }: CharacterPortraitProps) {
   const isDongdong = character === "dongdong";
+  const resolvedAssetSrc = assetSrc ?? (isDongdong ? dongdongPortrait : liliPortrait);
 
   return (
     <IllustrationAsset
-      assetSrc={assetSrc}
+      assetSrc={resolvedAssetSrc}
       alt={`${displayName}角色插画`}
       className="character-portrait-asset"
       tone={isDongdong ? "blue" : "purple"}
-      label={assetSrc ? undefined : "正式角色素材位"}
     >
       <strong>{isDongdong ? "D" : "L"}</strong>
       <span>{isDongdong ? "暗红发 · 黑 T · 白短裤" : "深紫发 · 细框眼镜"}</span>

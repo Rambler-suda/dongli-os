@@ -26,10 +26,10 @@ describe("ChipsPage", () => {
     render(<ChipsPage />);
 
     expect(screen.queryByText("筹码说明")).toBeNull();
-    const dongdongCard = getPersonCard("大冻梨");
+    const dongdongCard = getPersonCard("琦琦");
     const actions = within(dongdongCard).getAllByRole("button");
 
-    expect(within(dongdongCard).getByLabelText("大冻梨角色插画")).toBeTruthy();
+    expect(within(dongdongCard).getByLabelText("琦琦角色插画")).toBeTruthy();
     expect(within(dongdongCard).getByText("冷静记账员")).toBeTruthy();
     expect(within(dongdongCard).getByText("暂无小手资产")).toBeTruthy();
     expect(actions[2].hasAttribute("disabled")).toBe(true);

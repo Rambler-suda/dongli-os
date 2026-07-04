@@ -45,10 +45,21 @@ export type LoveItem = {
   updatedAt: string;
 };
 
+export type MemoItem = {
+  id: string;
+  text: string;
+  imageDataUrl?: string;
+  imageName?: string;
+  createdAt: string;
+  updatedAt: string;
+};
+
 export type TravelItemInput = Pick<TravelItem, "title" | "description" | "emoji">;
 export type TravelItemPatch = Partial<TravelItemInput>;
 export type LoveItemInput = Pick<LoveItem, "title" | "description" | "emoji">;
 export type LoveItemPatch = Partial<LoveItemInput>;
+export type MemoItemInput = Pick<MemoItem, "text" | "imageDataUrl" | "imageName">;
+export type MemoItemPatch = Partial<MemoItemInput>;
 
 export type AppDataState = {
   version: number;
@@ -56,6 +67,7 @@ export type AppDataState = {
   appStatus: {
     hasUnlocked: boolean;
     hasCompletedProfileSetup: boolean;
+    selectedPersonId: PersonId | null;
     currentTab: TabId;
   };
   profiles: Record<PersonId, CoupleProfile>;
@@ -66,6 +78,7 @@ export type AppDataState = {
   };
   travelItems: TravelItem[];
   loveItems: LoveItem[];
+  memoItems: MemoItem[];
   chips: {
     dongdongHands: number;
     liliHands: number;
@@ -75,6 +88,8 @@ export type AppDataState = {
 export type AppActions = {
   setCurrentTab: (tab: TabId) => void;
   unlockApp: () => void;
+  logoutApp: () => void;
+  completeRoleSelection: (personId: PersonId) => void;
   completeProfileSetup: () => void;
   updateProfile: (profileId: PersonId, patch: ProfilePatch) => void;
   setHomeCache: (
@@ -92,6 +107,9 @@ export type AppActions = {
   deleteLoveItem: (id: string) => void;
   markLoveDone: (id: string) => void;
   undoLoveDone: (id: string) => void;
+  addMemoItem: (input: MemoItemInput) => void;
+  updateMemoItem: (id: string, patch: MemoItemPatch) => void;
+  deleteMemoItem: (id: string) => void;
   addHands: (personId: PersonId, amount: number) => void;
   removeOneHand: (personId: PersonId) => void;
   resetHands: (personId: PersonId) => void;

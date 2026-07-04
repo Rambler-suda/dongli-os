@@ -2,7 +2,7 @@ import { createDefaultLoveItems } from "../data/defaultLoveItems";
 import { createDefaultTravelItems } from "../data/defaultTravelItems";
 import type { AppDataState } from "./types";
 
-export const APP_STATE_VERSION = 1;
+export const APP_STATE_VERSION = 3;
 const DEFAULT_UPDATED_AT = "2025-06-07T00:00:00.000Z";
 
 export function createDefaultState(): AppDataState {
@@ -12,13 +12,14 @@ export function createDefaultState(): AppDataState {
     appStatus: {
       hasUnlocked: false,
       hasCompletedProfileSetup: false,
+      selectedPersonId: null,
       currentTab: "home",
     },
     profiles: {
       dongdong: {
         id: "dongdong",
         role: "me",
-        displayName: "大冻梨",
+        displayName: "琦琦",
         birthday: "2002-02-03",
         pixelAvatarKey: "dongdong-default",
       },
@@ -37,6 +38,7 @@ export function createDefaultState(): AppDataState {
     },
     travelItems: createDefaultTravelItems(),
     loveItems: createDefaultLoveItems(),
+    memoItems: [],
     chips: {
       dongdongHands: 0,
       liliHands: 0,

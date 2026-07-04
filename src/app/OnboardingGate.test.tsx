@@ -1,6 +1,6 @@
 // @vitest-environment happy-dom
 
-import { cleanup, render, screen } from "@testing-library/react";
+import { cleanup, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import { appStore } from "../store/appStore";
@@ -16,7 +16,7 @@ afterEach(() => {
 });
 
 describe("OnboardingGate", () => {
-  it("completes the passcode and profile setup flow", async () => {
+  it("completes the passcode and role selection flow", async () => {
     const user = userEvent.setup();
     const view = render(<OnboardingGate />);
     const passcodeInput = screen.getByLabelText("我们的暗号");
@@ -30,19 +30,16 @@ describe("OnboardingGate", () => {
     await user.clear(passcodeInput);
     await user.type(passcodeInput, "0607");
     await user.click(screen.getByRole("button", { name: "进入小世界" }));
-    expect(screen.getByRole("heading", { name: "设置我们的形象" })).toBeTruthy();
+    expect(screen.getByRole("heading", { name: "选择你的角色" })).toBeTruthy();
 
-    const dongdongInput = screen.getByLabelText("冻冻昵称");
-    const liliInput = screen.getByLabelText("梨梨昵称");
-    await user.clear(dongdongInput);
-    await user.type(dongdongInput, "冻冻");
-    await user.clear(liliInput);
-    await user.type(liliInput, "梨梨");
-    await user.click(screen.getByRole("button", { name: "完成，进入首页" }));
+    await user.click(screen.getByRole("button", { name: /婷婷账户/ }));
 
     expect(screen.getByText("我们已经在一起")).toBeTruthy();
-    expect(appStore.getState().profiles.dongdong.displayName).toBe("冻冻");
-    expect(appStore.getState().profiles.lili.displayName).toBe("梨梨");
+    expect(appStore.getState().appStatus.selectedPersonId).toBe("lili");
+    expect(appStore.getState().profiles.dongdong.displayName).toBe("琦琦");
+    expect(appStore.getState().profiles.lili.displayName).toBe("婷婷");
+    expect(appStore.getState().profiles.dongdong.role).toBe("partner");
+    expect(appStore.getState().profiles.lili.role).toBe("me");
 
     view.unmount();
     render(<OnboardingGate />);
@@ -51,7 +48,7 @@ describe("OnboardingGate", () => {
 
   it("returns to the passcode page after resetAppData", async () => {
     appStore.getState().unlockApp();
-    appStore.getState().completeProfileSetup();
+    appStore.getState().completeRoleSelection("dongdong");
     render(<OnboardingGate />);
 
     expect(screen.getByText("我们已经在一起")).toBeTruthy();
@@ -59,5 +56,20 @@ describe("OnboardingGate", () => {
     appStore.getState().resetAppData();
 
     expect(await screen.findByRole("heading", { name: "进入冻梨 OS" })).toBeTruthy();
+  });
+
+  it("returns to the passcode page after logout confirmation", async () => {
+    const user = userEvent.setup();
+    appStore.getState().unlockApp();
+    appStore.getState().completeRoleSelection("dongdong");
+    render(<OnboardingGate />);
+
+    await user.click(screen.getByRole("button", { name: "\u9000\u51fa\u767b\u5f55" }));
+    await user.click(screen.getByRole("button", { name: "\u9000\u51fa" }));
+
+    await waitFor(() => {
+      expect(document.getElementById("passcode")).toBeTruthy();
+    });
+    expect(appStore.getState().appStatus.hasUnlocked).toBe(false);
   });
 });

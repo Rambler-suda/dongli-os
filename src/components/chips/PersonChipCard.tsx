@@ -30,7 +30,7 @@ export function PersonChipCard({
           displayName={profile.displayName}
         />
         <div>
-          <p className="card-label">{personId === "dongdong" ? "冻冻的筹码" : "梨梨的筹码"}</p>
+          <p className="card-label">{personId === "dongdong" ? "琦琦的筹码" : "婷婷的筹码"}</p>
           <h2>{profile.displayName}</h2>
           <PixelBadge
             tone={personId === "dongdong" ? "pear" : "love"}

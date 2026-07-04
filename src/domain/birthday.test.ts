@@ -12,7 +12,7 @@ describe("birthday domain", () => {
     );
   });
 
-  it("selects the nearest birthday and applies reminder ranges", () => {
+  it("selects the partner birthday and applies reminder ranges", () => {
     const preparing = getBirthdayReminder(profiles, createLocalDate(2026, 3, 1));
     const upcoming = getBirthdayReminder(profiles, createLocalDate(2026, 3, 14));
     const birthday = getBirthdayReminder(profiles, createLocalDate(2026, 3, 18));
@@ -21,5 +21,31 @@ describe("birthday domain", () => {
     expect(preparing.message).toContain("小惊喜");
     expect(upcoming.title).toContain("生日快到啦");
     expect(birthday.title).toBe("今天是婷婷生日");
+  });
+
+  it("reminds the partner even when my birthday is closer", () => {
+    const reminder = getBirthdayReminder(profiles, createLocalDate(2026, 1, 31));
+
+    expect(reminder).toMatchObject({
+      personId: "lili",
+      displayName: "婷婷",
+      daysUntil: 46,
+    });
+    expect(reminder.title).toBe("距离婷婷生日还有 46 天");
+  });
+
+  it("uses profile roles instead of fixed person ids", () => {
+    const swappedProfiles = {
+      dongdong: { ...profiles.dongdong, role: "partner" as const },
+      lili: { ...profiles.lili, role: "me" as const },
+    };
+
+    const reminder = getBirthdayReminder(swappedProfiles, createLocalDate(2026, 1, 31));
+
+    expect(reminder).toMatchObject({
+      personId: "dongdong",
+      displayName: "琦琦",
+      daysUntil: 3,
+    });
   });
 });
